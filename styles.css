@@ -747,12 +747,14 @@ main.content {
   pointer-events: auto;
 }
 
-#quarto-content {
-  max-width: 1200px;
-  margin: 0 auto;
-}
 
-#quarto-margin-sidebar {
-  width: 240px;
-  right: 40px;
+/* FINAL TOC POSITION FIX */
+@media (min-width: 1200px) {
+  #quarto-margin-sidebar {
+    position: fixed !important;
+    top: 110px !important;
+    right: 150px !important;
+    width: 240px !important;
+    margin: 0 !important;
+  }
 }
