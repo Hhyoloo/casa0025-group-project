@@ -66,7 +66,15 @@ Raster layers are harmonised before index construction and then aggregated to LS
 
 ## Methodology
 
-The method is designed to keep the index transparent. LST, NDVI and NDBI are first brought onto a common 0–1 scale, so that temperature, vegetation and built-surface intensity can be compared without one unit dominating the calculation. These three environmental layers are then combined with equal weights to produce the **Cooling Condition Score**. Population density and cool-space accessibility are not part of the score itself; they are added afterwards to help interpret where poorer cooling conditions may matter most for planning.
+The method is designed as a transparent environmental screening framework rather than a predictive heat-risk model. LST, NDVI and NDBI are first normalised to a common 0–1 scale. LST and NDBI are treated as pressure indicators, because higher values suggest stronger surface heat burden and built-surface intensity. NDVI is treated in the opposite direction: higher NDVI indicates stronger vegetation-related cooling potential, so it is reversed before being added to the score.
+
+The **Cooling Condition Score** is calculated as:
+
+\[
+CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
+\]
+
+In this score, higher values indicate relatively poorer cooling conditions, while lower values indicate relatively more favourable cooling conditions. Population density and cool-space accessibility are not included in the score itself. They are used afterwards as interpretation layers to identify where poor environmental cooling conditions may affect more residents or coincide with weaker access to cooling resources.
 
 ```{=html}
 <div class="method-svg-wrap">
@@ -195,8 +203,12 @@ var lstNorm = unitScale(lst, 'LST', london);
 var ndviNorm = unitScale(ndvi, 'NDVI', london);
 var ndbiNorm = unitScale(ndbi, 'NDBI', london);
 
+// Higher NDVI means stronger cooling potential,
+// so it is reversed for a risk-oriented cooling condition score.
+var ndviPressure = ee.Image(1).subtract(ndviNorm);
+
 var coolingScore = lstNorm
-  .add(ndviNorm)
+  .add(ndviPressure)
   .add(ndbiNorm)
   .divide(3)
   .rename('Cooling_Condition_Score');

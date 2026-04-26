@@ -348,7 +348,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
-<p>The method is designed to keep the index transparent. LST, NDVI and NDBI are first brought onto a common 0–1 scale, so that temperature, vegetation and built-surface intensity can be compared without one unit dominating the calculation. These three environmental layers are then combined with equal weights to produce the <strong>Cooling Condition Score</strong>. Population density and cool-space accessibility are not part of the score itself; they are added afterwards to help interpret where poorer cooling conditions may matter most for planning.</p>
+<p>The method is designed as a transparent environmental screening framework rather than a predictive heat-risk model. LST, NDVI and NDBI are first normalised to a common 0–1 scale. LST and NDBI are treated as pressure indicators, because higher values suggest stronger surface heat burden and built-surface intensity. NDVI is treated in the opposite direction: higher NDVI indicates stronger vegetation-related cooling potential, so it is reversed before being added to the score.</p>
+<p>The <strong>Cooling Condition Score</strong> is calculated as:</p>
+<p>[ CCS = ]</p>
+<p>In this score, higher values indicate relatively poorer cooling conditions, while lower values indicate relatively more favourable cooling conditions. Population density and cool-space accessibility are not included in the score itself. They are used afterwards as interpretation layers to identify where poor environmental cooling conditions may affect more residents or coincide with weaker access to cooling resources.</p>
 <div class="method-svg-wrap">
 <svg viewbox="0 0 860 430" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -465,11 +468,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndviNorm <span class="op">=</span> <span class="fu">unitScale</span>(ndvi<span class="op">,</span> <span class="st">'NDVI'</span><span class="op">,</span> london)<span class="op">;</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndbiNorm <span class="op">=</span> <span class="fu">unitScale</span>(ndbi<span class="op">,</span> <span class="st">'NDBI'</span><span class="op">,</span> london)<span class="op">;</span></span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> coolingScore <span class="op">=</span> lstNorm</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndviNorm)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndbiNorm)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">divide</span>(<span class="dv">3</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'Cooling_Condition_Score'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Higher NDVI means stronger cooling potential,</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">// so it is reversed for a risk-oriented cooling condition score.</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndviPressure <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="dv">1</span>)<span class="op">.</span><span class="fu">subtract</span>(ndviNorm)<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> coolingScore <span class="op">=</span> lstNorm</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndviPressure)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndbiNorm)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">divide</span>(<span class="dv">3</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'Cooling_Condition_Score'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="lsoa-aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="lsoa-aggregation">3. LSOA aggregation</h3>
