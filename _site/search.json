@@ -67,6 +67,20 @@
     "href": "readme.html",
     "title": "Cool Refuge London",
     "section": "",
-    "text": "Use this repository to host a website for your CASA0025 final project by following these stpes:\n\nclone this repository\ninstall quarto\nedit the ‘index.qmd’ file with the contents of your project\nusing terminal, navigate to the project directory and run “quarto render”\npush the changes to your github repository\non github, navigate to Settings&gt;Pages&gt;Build and Deployment. Make sure that under “Source” it says “deploy from branch”. Under “Branch”, select “Main” in the first dropdown and “Docs” under the second drop down. Then press “Save”\n\nYour website should now be available under https://{your_username}.github.io/{your_repo_name}"
+    "text": "This repository contains the CASA0025 group project website and interactive application for Cool Refuge London.\nThe project explores where London may need cooling interventions by combining land surface temperature, vegetation, built-surface intensity, population density, and access to cool spaces. The website documents the project background, data, methodology, interface design, application, workflow, limitations, and references.\n\n\n\nindex.qmd — main Quarto website content\nstyles.css — custom website styling\nimages/ — image assets\ndocs/ — rendered website files for GitHub Pages\n_quarto.yml — Quarto website configuration\n\n\n\n\nThe published site is intended to be served from the docs/ folder using GitHub Pages."
+  },
+  {
+    "objectID": "readme.html#repository-structure",
+    "href": "readme.html#repository-structure",
+    "title": "Cool Refuge London",
+    "section": "",
+    "text": "index.qmd — main Quarto website content\nstyles.css — custom website styling\nimages/ — image assets\ndocs/ — rendered website files for GitHub Pages\n_quarto.yml — Quarto website configuration"
+  },
+  {
+    "objectID": "readme.html#website",
+    "href": "readme.html#website",
+    "title": "Cool Refuge London",
+    "section": "",
+    "text": "The published site is intended to be served from the docs/ folder using GitHub Pages."
   }
 ]

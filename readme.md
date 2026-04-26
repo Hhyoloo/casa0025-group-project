@@ -1,11 +1,17 @@
-Use this repository to host a website for your CASA0025 final project by following these stpes: 
+# Cool Refuge London
 
-1. clone this repository 
-2. install [quarto](https://quarto.org/docs/download/) 
-3. edit the 'index.qmd' file with the contents of your project
-4. using terminal, navigate to the project directory and run "quarto render" 
-5. push the changes to your github repository 
-6. on github, navigate to Settings>Pages>Build and Deployment. Make sure that under "Source" it says "deploy from branch". Under "Branch", select "Main" in the first dropdown and "Docs" under the second drop down. Then press "Save" 
+This repository contains the CASA0025 group project website and interactive application for **Cool Refuge London**.
 
-Your website should now be available under 
-https://{your_username}.github.io/{your_repo_name}
+The project explores where London may need cooling interventions by combining land surface temperature, vegetation, built-surface intensity, population density, and access to cool spaces. The website documents the project background, data, methodology, interface design, application, workflow, limitations, and references.
+
+## Repository structure
+
+- `index.qmd` — main Quarto website content
+- `styles.css` — custom website styling
+- `images/` — image assets
+- `docs/` — rendered website files for GitHub Pages
+- `_quarto.yml` — Quarto website configuration
+
+## Website
+
+The published site is intended to be served from the `docs/` folder using GitHub Pages.
