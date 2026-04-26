@@ -212,6 +212,7 @@ window.Quarto = {
   <li><a href="#web-mapping" id="toc-web-mapping" class="nav-link" data-scroll-target="#web-mapping">4. Web mapping</a></li>
   <li><a href="#reading-the-output" id="toc-reading-the-output" class="nav-link" data-scroll-target="#reading-the-output">5. Reading the output</a></li>
   </ul></li>
+  <li><a href="#insights-and-objectives" id="toc-insights-and-objectives" class="nav-link" data-scroll-target="#insights-and-objectives">Insights and Objectives</a></li>
   <li><a href="#limitations-and-future-development" id="toc-limitations-and-future-development" class="nav-link" data-scroll-target="#limitations-and-future-development">Limitations and future development</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -267,6 +268,7 @@ window.Quarto = {
 </div>
 <section id="project-summary" class="level2">
 <h2 class="anchored" data-anchor-id="project-summary">Project Summary</h2>
+<p>The project develops an application using Google Earth Engine for city planners and policymakers to evaluate urban cooling resilience across London at the LSOA level. The model calculates a Cooling Condition Score (CCS) using vegetation (NDVI), built-up (NDBI), and land surface temperature (LST) data, following the Equal Weighting Approach (EWA) established by Turner et al.&nbsp;(2025). Based on the London Policy G5 (Urban Greening) framework launched in 2021, this study tracks CCS trends between 2022 and 2025 and the distribution of official “Cool Spaces”. By comparing these layers, the platform reveals the spatial alignment between cooling resources and actual neighborhood needs, helping to identify whether interventions are accurately directed at high-vulnerability areas. This provides a data-driven basis for targeted interventions and optimized resource allocation.</p>
 <section id="policy-context" class="level3">
 <h3 class="anchored" data-anchor-id="policy-context">Policy Context</h3>
 <p>This project is framed by <strong>The London Plan 2021</strong>, particularly its focus on managing heat risk, expanding urban greening and improving fair access to climate adaptation resources. Policy SI 4 treats overheating as a planning issue, while Policy G5 highlights urban greening as part of climate resilience. Together, these policies support the need for a spatial tool that can connect heat exposure, green infrastructure and cooling access.</p>
@@ -299,13 +301,11 @@ window.Quarto = {
 </section>
 <section id="problem-statement" class="level3">
 <h3 class="anchored" data-anchor-id="problem-statement">Problem Statement</h3>
-<p>Extreme heat is an increasing planning concern for London, but heat exposure is not evenly distributed. Dense built-up areas with limited vegetation and poor access to cool spaces may experience higher cooling needs than greener areas under the same city-wide heat warning. This application addresses the question: <strong>where should cooling interventions be prioritised?</strong></p>
-<p>The project translates remote-sensing, population and accessibility layers into a transparent spatial screening tool. Rather than treating heat risk as a single temperature surface, it compares several conditions that shape local cooling need: surface heat burden, vegetation cooling potential, built-surface intensity, population exposure and access to cooling resources.</p>
+<p>London faces rising heat risks due to the Urban Heat Island effect, creating an urgent need for neighborhood-level cooling research. While London Policy G5 (2021) set ambitious greening targets, evaluating their real-world impact at the LSOA scale remains difficult. Our application addresses this gap by offering a platform for planners to visualize Cooling Condition Scores (CCS) alongside official 2025 Cool Spaces. By bridging Turner et al.’s (2025) methodology with local governance, it supports evidence-based planning and ensures cooling resources reach the neighborhoods that need them most.</p>
 </section>
 <section id="end-user" class="level3">
 <h3 class="anchored" data-anchor-id="end-user">End User</h3>
-<p>The application is designed for London borough officers, climate adaptation teams, urban greening practitioners and community-facing planners. These users need a quick way to compare neighbourhood-level heat burden, cooling capacity, population exposure and cool-space access.</p>
-<p>The tool does not replace detailed thermal-comfort modelling. Instead, it helps identify candidate areas for further investigation, greening investment, shade provision, cool-route planning and local climate resilience discussion.</p>
+<p>Our platform is designed for city planners, local councils, and community groups in London. These users need tools that are easy to use and help turn big policy goals into local action. For too long, the gap between climate research and neighborhood needs has made it hard to implement effective cooling. By providing an interactive dashboard instead of long academic reports, we make complex data easy to understand and use. This helps different groups work together to close the resilience gap across the city.</p>
 </section>
 </section>
 <section id="data" class="level2">
@@ -551,6 +551,13 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 <p>Higher Cooling Condition Score values indicate relatively warmer or less favourable cooling conditions. Lower values indicate relatively cooler or more favourable conditions. Population density and cool-space accessibility should be read alongside the score to identify where poor cooling conditions may affect more residents or coincide with weaker access to cooling resources.</p>
 </section>
 </section>
+<section id="insights-and-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="insights-and-objectives">Insights and Objectives</h2>
+<p>The app provides actionable insights for London’s urban heat management by identifying the gap between environmental trends and current infrastructure. It supports:</p>
+<p>• Strategic Prioritization: Visualizes the overlap between CCS change trends (2022–2025), population density, and official “Cool Spaces”. This assists users in identifying “vulnerable hotspots” where environmental conditions are deteriorating and existing resources remain insufficient</p>
+<p>.• Localized Resilience Analysis: Enables neighbourhood-scale assessment, allowing local councils to pinpoint specific streets or blocks where rising surface temperatures are not yet countered by adequate cooling facilities.</p>
+<p>• Academic Research: Unlike traditional urban heat studies in static academic papers, this app provides an interactive platform for exploring cooling dynamics through a comparison of CCS trends and official resource distribution. By leveraging the Equal Weighting Approach (Turner et al., 2025), it enables a rigorous validation of “estimated cooling potential” against ground-truth “Cool Spaces,” ensuring more accurate spatial risk assessments and policy validation at the neighbourhood scale.</p>
+</section>
 <section id="limitations-and-future-development" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-and-future-development">Limitations and future development</h2>
 <table class="caption-top table">
@@ -561,31 +568,26 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 </colgroup>
 <thead>
 <tr class="header">
-<th>Limitation</th>
-<th>Implication</th>
-<th>Future development</th>
+<th style="text-align: left;">Limitation</th>
+<th style="text-align: left;">Implication</th>
+<th style="text-align: left;">Future development</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Temporal consistency</td>
-<td>Not every layer is available for the same year. Population and accessibility layers may need contextual interpretation rather than direct year-to-year comparison.</td>
-<td>Update all contextual layers where possible and document the reference year of each dataset.</td>
+<td style="text-align: left;">[cite_start]<strong>Static Models</strong> [cite: 27]</td>
+<td style="text-align: left;">[cite_start]Current analysis is based on precomputed CCS trends (2022–2025), which limits adaptability to sudden environmental shifts or new urban developments[cite: 27].</td>
+<td style="text-align: left;">[cite_start]Integrate real-time satellite feeds or live sensor data to enhance responsiveness to active heatwave events[cite: 28].</td>
 </tr>
 <tr class="even">
-<td>Index assumption</td>
-<td>The Cooling Condition Score is a relative composite indicator. It does not directly measure human thermal comfort.</td>
-<td>Add humidity, wind, shade, land cover and exposure duration where data allow.</td>
+<td style="text-align: left;">[cite_start]<strong>Granularity of Analysis</strong> [cite: 29]</td>
+<td style="text-align: left;">[cite_start]Analysis at the LSOA level makes it difficult for users to decide the exact locations for new trees or cooling infrastructure[cite: 30].</td>
+<td style="text-align: left;">[cite_start]Provide more detailed data at the street or block level to allow for more precise planning[cite: 30].</td>
 </tr>
 <tr class="odd">
-<td>Spatial aggregation</td>
-<td>LSOA summaries are useful for comparison but can smooth microclimate variation.</td>
-<td>Add finer-scale street or grid-level views for local design interpretation.</td>
-</tr>
-<tr class="even">
-<td>Validation</td>
-<td>The current index is theory- and literature-informed but not independently validated against observed heat-health outcomes.</td>
-<td>Compare priority areas with heat-health incidents, thermal comfort observations or local authority heat-risk evidence.</td>
+<td style="text-align: left;">[cite_start]<strong>Report Export</strong> [cite: 31]</td>
+<td style="text-align: left;">[cite_start]Lack of export features makes it difficult for stakeholders to document findings or share evidence-based insights during planning consultations and meetings[cite: 32].</td>
+<td style="text-align: left;">[cite_start]Add functionality to export analysis reports or map snapshots to support documentation and cross-departmental sharing[cite: 32].</td>
 </tr>
 </tbody>
 </table>
