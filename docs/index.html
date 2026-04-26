@@ -20,7 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-.display.math{display: block; text-align: center; margin: 0.5rem auto;}
 /* CSS for syntax highlighting */
 html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -59,358 +58,535 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-html-abba60c7b863426f1dd778d2b3fd6e6d.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-1b3db88def35042d172274863c1cdcf0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body class="nav-fixed quarto-light">
 
-
-<header id="title-block-header">
-
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Cool Refuge London</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./#project-summary"> 
+<span class="menu-text">Summary</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./#data"> 
+<span class="menu-text">Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./#methodology"> 
+<span class="menu-text">Method</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./#interface"> 
+<span class="menu-text">Interface</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./#how-it-works"> 
+<span class="menu-text">Workflow</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./#references"> 
+<span class="menu-text">References</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
 </header>
-
-
-<header class="topbar">
-<a class="brand" href="#hero" aria-label="Cool Refuge London home"> <span class="brand-title">Cool Refuge London</span> <span class="brand-subtitle">Heat risk · Green infrastructure · Cooling access</span> </a>
-<nav class="nav-links" aria-label="Page navigation">
-<a href="#summary">Overview</a> <a href="#policy">Policy</a> <a href="#data">Data</a> <a href="#methodology">Framework</a> <a href="#application">Map</a> <a href="#workflow">Code</a>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#project-summary" id="toc-project-summary" class="nav-link active" data-scroll-target="#project-summary">Project Summary</a>
+  <ul class="collapse">
+  <li><a href="#policy-context" id="toc-policy-context" class="nav-link" data-scroll-target="#policy-context">Policy Context</a></li>
+  <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">Problem Statement</a></li>
+  <li><a href="#end-user" id="toc-end-user" class="nav-link" data-scroll-target="#end-user">End User</a></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  <li><a href="#interface" id="toc-interface" class="nav-link" data-scroll-target="#interface">Interface</a></li>
+  <li><a href="#the-application" id="toc-the-application" class="nav-link" data-scroll-target="#the-application">The Application</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How it Works</a>
+  <ul class="collapse">
+  <li><a href="#earth-engine-preprocessing" id="toc-earth-engine-preprocessing" class="nav-link" data-scroll-target="#earth-engine-preprocessing">1. Earth Engine preprocessing</a></li>
+  <li><a href="#standardisation-and-score-construction" id="toc-standardisation-and-score-construction" class="nav-link" data-scroll-target="#standardisation-and-score-construction">2. Standardisation and score construction</a></li>
+  <li><a href="#lsoa-aggregation" id="toc-lsoa-aggregation" class="nav-link" data-scroll-target="#lsoa-aggregation">3. LSOA aggregation</a></li>
+  <li><a href="#web-mapping" id="toc-web-mapping" class="nav-link" data-scroll-target="#web-mapping">4. Web mapping</a></li>
+  <li><a href="#reading-the-output" id="toc-reading-the-output" class="nav-link" data-scroll-target="#reading-the-output">5. Reading the output</a></li>
+  </ul></li>
+  <li><a href="#limitations-and-future-development" id="toc-limitations-and-future-development" class="nav-link" data-scroll-target="#limitations-and-future-development">Limitations and future development</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
 </nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Cool Refuge London</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-left">
+
+    
+  
+    
+  </div>
+  
+
+
 </header>
-<main class="page-shell"><header id="title-block-header" class="quarto-title-block"><h1 class="title">Cool Refuge London</h1></header>
-<section id="hero" class="hero section-block">
-<div class="hero-copy">
-<pre><code>&lt;p class="eyebrow"&gt;CASA0025 Group Application&lt;/p&gt;
-&lt;h1&gt;Where should London prioritise cooling interventions?&lt;/h1&gt;
-&lt;p class="lead"&gt;London’s heat risk is not only a question of high temperature. It is shaped by vegetation, built-surface intensity, population exposure and access to places where people can cool down. This project brings these layers together into an interactive planning-support tool for exploring local cooling conditions across London.&lt;/p&gt;
-&lt;div class="hero-actions"&gt;
-  &lt;a class="btn primary" href="#application"&gt;Open the application&lt;/a&gt;
-  &lt;a class="btn secondary" href="#methodology"&gt;View methodology&lt;/a&gt;
-&lt;/div&gt;</code></pre>
-</div>
-<div class="metric-grid" aria-label="Project metrics">
-<pre><code>&lt;div class="metric-card"&gt;&lt;strong&gt;6&lt;/strong&gt;&lt;span&gt;main analytical layers&lt;/span&gt;&lt;/div&gt;
-&lt;div class="metric-card"&gt;&lt;strong&gt;30 m&lt;/strong&gt;&lt;span&gt;harmonised raster resolution&lt;/span&gt;&lt;/div&gt;
-&lt;div class="metric-card"&gt;&lt;strong&gt;LSOA&lt;/strong&gt;&lt;span&gt;local reporting unit&lt;/span&gt;&lt;/div&gt;
-&lt;div class="metric-card"&gt;&lt;strong&gt;GEE + Leaflet&lt;/strong&gt;&lt;span&gt;analysis and web mapping&lt;/span&gt;&lt;/div&gt;</code></pre>
-</div>
-</section>
-<section id="summary" class="section-block narrow">
-<p class="eyebrow">
-Project Summary
-</p>
-<h2 class="anchored">
-From heat mapping to cooling-priority screening
-</h2>
-<h3 class="anchored">
-Problem Statement
-</h3>
-<p>
-Extreme heat is an increasing planning concern for London, but heat exposure is spatially uneven. Dense built-up areas with limited vegetation and poorer access to cool spaces may experience higher cooling needs than greener neighbourhoods under the same city-wide heat warning. The application answers one practical question: <strong>where should cooling interventions be prioritised?</strong>
-</p>
-<h3 class="anchored">
-End User
-</h3>
-<p>
-The tool is designed for London borough officers, climate adaptation teams, urban greening practitioners and community-facing planners. It does not replace detailed thermal-comfort modelling; instead, it provides a transparent neighbourhood-scale screening tool for comparing heat burden, cooling capacity, population exposure and cool-space access.
-</p>
-</section>
-<section id="policy" class="section-block">
-<p class="eyebrow">
-Planning Context
-</p>
-<h2 class="anchored">
-Policy background
-</h2>
-<p class="section-intro">
-The project is framed by <em>The London Plan 2021</em>, especially policies on managing heat risk, urban greening and fair access to climate adaptation resources.
-</p>
-<div class="card-grid three">
-<pre><code>&lt;article class="info-card accent-orange"&gt;
-  &lt;h3&gt;The London Plan 2021 · Policy SI 4&lt;/h3&gt;
-  &lt;h4&gt;Managing Heat Risk&lt;/h4&gt;
-  &lt;p&gt;Policy SI 4 treats overheating as a planning issue. In this project, land surface temperature is used to identify areas with stronger summer heat burden and to support spatial cooling priorities.&lt;/p&gt;
-&lt;/article&gt;
-&lt;article class="info-card accent-green"&gt;
-  &lt;h3&gt;The London Plan 2021 · Policy G5&lt;/h3&gt;
-  &lt;h4&gt;Urban Greening&lt;/h4&gt;
-  &lt;p&gt;Policy G5 highlights urban greening as part of development and climate adaptation. NDVI is used here as a remote-sensing indicator of vegetation-related cooling potential.&lt;/p&gt;
-&lt;/article&gt;
-&lt;article class="info-card accent-blue"&gt;
-  &lt;h3&gt;Good Growth and Access&lt;/h3&gt;
-  &lt;h4&gt;Cooling as an equity issue&lt;/h4&gt;
-  &lt;p&gt;Population density and cool-space accessibility help show where cooling resources may not align with local need, turning the project from a heat map into a planning-support tool.&lt;/p&gt;
-&lt;/article&gt;</code></pre>
-</div>
-</section>
-<section id="data" class="section-block">
-<p class="eyebrow">
-Input Layers
-</p>
-<h2 class="anchored">
-Datasets
-</h2>
-<p class="section-intro">
-The project combines environmental, demographic and accessibility datasets. Raster layers are harmonised to 30 m before index construction and aggregated to LSOA level for comparison and querying.
-</p>
-<div class="table-wrap">
-<pre><code>&lt;table class="data-table"&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Category&lt;/th&gt;
-      &lt;th&gt;Dataset&lt;/th&gt;
-      &lt;th&gt;Role in the application&lt;/th&gt;
-      &lt;th&gt;Resolution / unit&lt;/th&gt;
-      &lt;th&gt;Source&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Temperature&lt;/td&gt;
-      &lt;td&gt;Landsat 8/9 Collection 2 Level-2 LST&lt;/td&gt;
-      &lt;td&gt;Surface heat burden&lt;/td&gt;
-      &lt;td&gt;30 m&lt;/td&gt;
-      &lt;td&gt;Google Earth Engine Catalogue&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Greenness&lt;/td&gt;
-      &lt;td&gt;Sentinel-2 MSI Level-2A NDVI&lt;/td&gt;
-      &lt;td&gt;Vegetation cooling potential&lt;/td&gt;
-      &lt;td&gt;30 m after harmonisation&lt;/td&gt;
-      &lt;td&gt;Google Earth Engine Catalogue&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Built surface&lt;/td&gt;
-      &lt;td&gt;NDBI / impervious-surface proxy&lt;/td&gt;
-      &lt;td&gt;Heat-retaining urban fabric&lt;/td&gt;
-      &lt;td&gt;30 m after harmonisation&lt;/td&gt;
-      &lt;td&gt;GEE-derived / external layer&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Exposure&lt;/td&gt;
-      &lt;td&gt;Population density&lt;/td&gt;
-      &lt;td&gt;Potential number of affected residents&lt;/td&gt;
-      &lt;td&gt;LSOA / raster&lt;/td&gt;
-      &lt;td&gt;ONS / WorldPop&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Accessibility&lt;/td&gt;
-      &lt;td&gt;Cool spaces / green-space catchment&lt;/td&gt;
-      &lt;td&gt;Access to cooling resources&lt;/td&gt;
-      &lt;td&gt;Vector / buffer&lt;/td&gt;
-      &lt;td&gt;London Datastore / OSM&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Boundary&lt;/td&gt;
-      &lt;td&gt;LSOA 2021 boundary&lt;/td&gt;
-      &lt;td&gt;Reporting geography for statistics and interaction&lt;/td&gt;
-      &lt;td&gt;Vector&lt;/td&gt;
-      &lt;td&gt;ONS / London Datastore&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
-</div>
-</section>
-<section id="methodology" class="section-block">
-<p class="eyebrow">
-Analytical Logic
-</p>
-<h2 class="anchored">
-Cool Refuge analytical framework
-</h2>
-<p class="section-intro">
-The project uses a <strong>multi-criteria spatial index framework</strong> rather than a predictive machine-learning model. Each layer is converted to a comparable 0–1 scale. Higher LST, stronger built-surface intensity, higher population density and poorer cool-space access indicate greater cooling priority; higher NDVI indicates stronger cooling capacity and is therefore reversed in the risk-oriented score.
-</p>
-<div class="flow-panel">
-<pre><code>&lt;div class="flow-stack"&gt;
-  &lt;div class="flow-node orange"&gt;&lt;strong&gt;LST&lt;/strong&gt;&lt;span&gt;heat burden&lt;/span&gt;&lt;/div&gt;
-  &lt;div class="flow-node green"&gt;&lt;strong&gt;NDVI&lt;/strong&gt;&lt;span&gt;cooling potential&lt;/span&gt;&lt;/div&gt;
-  &lt;div class="flow-node grey"&gt;&lt;strong&gt;NDBI&lt;/strong&gt;&lt;span&gt;built intensity&lt;/span&gt;&lt;/div&gt;
-  &lt;div class="flow-node purple"&gt;&lt;strong&gt;Population&lt;/strong&gt;&lt;span&gt;exposure&lt;/span&gt;&lt;/div&gt;
-  &lt;div class="flow-node blue"&gt;&lt;strong&gt;Accessibility&lt;/strong&gt;&lt;span&gt;cool spaces&lt;/span&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="arrow"&gt;→&lt;/div&gt;
-&lt;div class="flow-node green"&gt;&lt;strong&gt;Standardise&lt;/strong&gt;&lt;span&gt;0–1 scale&lt;/span&gt;&lt;/div&gt;
-&lt;div class="arrow"&gt;→&lt;/div&gt;
-&lt;div class="flow-node green"&gt;&lt;strong&gt;Aggregate&lt;/strong&gt;&lt;span&gt;LSOA level&lt;/span&gt;&lt;/div&gt;
-&lt;div class="arrow"&gt;→&lt;/div&gt;
-&lt;div class="flow-node navy"&gt;&lt;strong&gt;Prioritise&lt;/strong&gt;&lt;span&gt;intervention areas&lt;/span&gt;&lt;/div&gt;</code></pre>
-</div>
-<div class="card-grid four">
-<pre><code>&lt;article class="info-card compact"&gt;&lt;h3&gt;1 · Heat background&lt;/h3&gt;&lt;p&gt;LST identifies spatial patterns of summer surface heat burden.&lt;/p&gt;&lt;/article&gt;
-&lt;article class="info-card compact"&gt;&lt;h3&gt;2 · Cooling capacity&lt;/h3&gt;&lt;p&gt;NDVI and built-surface indicators show whether hot areas have vegetation-related cooling potential.&lt;/p&gt;&lt;/article&gt;
-&lt;article class="info-card compact"&gt;&lt;h3&gt;3 · CRI change&lt;/h3&gt;&lt;p&gt;The composite score summarises relative cooling conditions and allows comparison between years.&lt;/p&gt;&lt;/article&gt;
-&lt;article class="info-card compact"&gt;&lt;h3&gt;4 · Planning interpretation&lt;/h3&gt;&lt;p&gt;Population density and access to cool spaces identify where intervention may benefit more residents.&lt;/p&gt;&lt;/article&gt;</code></pre>
-</div>
-</section>
-<section id="interface" class="section-block narrow">
-<p class="eyebrow">
-Interface
-</p>
-<h2 class="anchored">
-How users read the application
-</h2>
-<p>
-The interface is organised around layer comparison. Users can switch between LST, NDVI, built surface, population density, cool-space accessibility and composite CRI change. The legend updates with the active layer, while the side panel explains how colours should be interpreted and what each layer contributes to the planning question.
-</p>
-</section>
-<section id="application" class="section-block application-block">
-<p class="eyebrow">
-Interactive Application
-</p>
-<h2 class="anchored">
-The Application
-</h2>
-<p class="section-intro">
-The embedded application below is the interactive front end of the project. When publishing through GitHub Pages, keep the web application files in a folder called <code>app</code> beside this Quarto page.
-</p>
-<div class="iframe-shell">
-<pre><code>&lt;iframe src="app/index.html" title="Cool Refuge London interactive map" loading="lazy"&gt;&lt;/iframe&gt;</code></pre>
-</div>
-</section>
-<section id="workflow" class="section-block">
-<p class="eyebrow">
-Code and Workflow
-</p>
-<h2 class="anchored">
-How it works
-</h2>
-<p class="section-intro">
-The repository should show the full workflow: Google Earth Engine preprocessing, raster harmonisation, composite-index construction, LSOA aggregation and Leaflet web mapping.
-</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Google Earth Engine preprocessing example</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> image <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'COPERNICUS/S2_SR_HARMONIZED'</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterBounds</span>(london)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2025-06-01'</span><span class="op">,</span> <span class="st">'2025-08-31'</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">lt</span>(<span class="st">'CLOUDY_PIXEL_PERCENTAGE'</span><span class="op">,</span> <span class="dv">20</span>))</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">median</span>()<span class="op">;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> image<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B8'</span><span class="op">,</span> <span class="st">'B4'</span>])</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'NDVI'</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">clip</span>(london)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Normalisation and composite index logic</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">normalise</span>(img<span class="op">,</span> region) {</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> minMax <span class="op">=</span> img<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">minMax</span>()<span class="op">,</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">geometry</span><span class="op">:</span> region<span class="op">,</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bestEffort</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> img<span class="op">.</span><span class="fu">unitScale</span>(minMax<span class="op">.</span><span class="fu">get</span>(<span class="st">'min'</span>)<span class="op">,</span> minMax<span class="op">.</span><span class="fu">get</span>(<span class="st">'max'</span>))<span class="op">;</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">// Higher NDVI means more cooling capacity, so it is reversed in the risk score.</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> cri <span class="op">=</span> lstNorm<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">0.4</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndbiNorm<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">0.2</span>))</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndviNorm<span class="op">.</span><span class="fu">multiply</span>(<span class="op">-</span><span class="fl">0.2</span>))</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(popNorm<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">0.2</span>))<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Leaflet layer control example</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> map <span class="op">=</span> L<span class="op">.</span><span class="fu">map</span>(<span class="st">'map'</span>)<span class="op">.</span><span class="fu">setView</span>([<span class="fl">51.5072</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.1276</span>]<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>L<span class="op">.</span><span class="fu">tileLayer</span>(<span class="st">'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'</span><span class="op">,</span> {</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">attribution</span><span class="op">:</span> <span class="st">'&amp;copy; OpenStreetMap contributors &amp;copy; CARTO'</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">addTo</span>(map)<span class="op">;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>L<span class="op">.</span><span class="fu">geoJSON</span>(criChange<span class="op">,</span> {</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">style</span><span class="op">:</span> feature <span class="kw">=&gt;</span> ({</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">fillColor</span><span class="op">:</span> <span class="fu">getCriColour</span>(feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">cri_change</span>)<span class="op">,</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">weight</span><span class="op">:</span> <span class="fl">0.4</span><span class="op">,</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.72</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">addTo</span>(map)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="interpretation" class="section-block narrow">
-<p class="eyebrow">
-Interpretation
-</p>
-<h2 class="anchored">
-Planning value
-</h2>
-<p>
-The application is most useful as an exploratory planning screen. Red areas in the composite layer indicate neighbourhoods where relative cooling conditions have worsened or where high heat burden is combined with lower cooling capacity and higher exposure. Blue areas indicate relative improvement or lower priority. These outputs can inform where to investigate tree planting, shade provision, cool-route planning, public-space upgrades and targeted community communication during heat events.
-</p>
-</section>
-<section id="limitations" class="section-block">
-<p class="eyebrow">
-Critical Reflection
-</p>
-<h2 class="anchored">
-Limitations and future development
-</h2>
-<div class="card-grid three">
-<pre><code>&lt;article class="info-card"&gt;&lt;h3&gt;Temporal consistency&lt;/h3&gt;&lt;p&gt;Not every layer is available for the same year. Population and accessibility layers may need to be interpreted as contextual rather than directly time-matched indicators.&lt;/p&gt;&lt;/article&gt;
-&lt;article class="info-card"&gt;&lt;h3&gt;Index assumption&lt;/h3&gt;&lt;p&gt;The CRI is a relative composite index. It does not directly measure human thermal comfort, which would also require humidity, wind, shade, activity level and exposure duration.&lt;/p&gt;&lt;/article&gt;
-&lt;article class="info-card"&gt;&lt;h3&gt;Spatial aggregation&lt;/h3&gt;&lt;p&gt;LSOA-level summaries are useful for planning comparison, but they can smooth local microclimate variation within neighbourhoods.&lt;/p&gt;&lt;/article&gt;</code></pre>
-</div>
-</section>
-<section id="team" class="section-block">
-<p class="eyebrow">
-Collaboration
-</p>
-<h2 class="anchored">
-Team contributions
-</h2>
-<div class="table-wrap">
-<pre><code>&lt;table class="data-table"&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;&lt;th&gt;Work package&lt;/th&gt;&lt;th&gt;Main tasks&lt;/th&gt;&lt;th&gt;Evidence in repository&lt;/th&gt;&lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;&lt;td&gt;Preprocessing&lt;/td&gt;&lt;td&gt;Cloud filtering, London clipping, raster harmonisation&lt;/td&gt;&lt;td&gt;GEE scripts and exported layers&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;Index construction&lt;/td&gt;&lt;td&gt;Standardisation, CRI calculation, LSOA aggregation&lt;/td&gt;&lt;td&gt;CRI script and GeoJSON output&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;Web mapping&lt;/td&gt;&lt;td&gt;Leaflet interface, layer controls, legend, popups&lt;/td&gt;&lt;td&gt;&lt;code&gt;app/index.html&lt;/code&gt;, &lt;code&gt;app/style.css&lt;/code&gt;, &lt;code&gt;app/app.js&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;Documentation&lt;/td&gt;&lt;td&gt;Quarto report, policy framing, references, limitations&lt;/td&gt;&lt;td&gt;&lt;code&gt;index.qmd&lt;/code&gt;, &lt;code&gt;styles.css&lt;/code&gt;, README&lt;/td&gt;&lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
-</div>
-</section>
-<section id="references" class="section-block narrow references">
-<p class="eyebrow">
-References
-</p>
-<h2 class="anchored">
-References
-</h2>
-<ol>
-<li>
-Greater London Authority. (2021). <em>The London Plan 2021</em>. Policies SI 4 and G5.
-</li>
-<li>
-Greater London Authority. (2023). <em>Urban Greening Factor London Plan Guidance</em>.
-</li>
-<li>
-Google Earth Engine Data Catalogue. Landsat 8/9 Collection 2 Level-2.
-</li>
-<li>
-Google Earth Engine Data Catalogue. Sentinel-2 MSI Level-2A Surface Reflectance.
-</li>
-<li>
-Ahmad, B., Najar, M. B., &amp; Ahmad, S. (2024). Analysis of LST, NDVI and UHI patterns for urban climate assessment using Landsat satellite data.
-</li>
-<li>
-Kabisch, N., Remahne, F., Ilsemann, C., &amp; Fricke, L. (2023). The urban heat island under extreme heat conditions: a case study of Hannover, Germany.
-</li>
-</ol>
-</section>
-</main>
 
 
+<div class="hero-banner">
+<p>Heat risk · Green infrastructure · Cooling access</p>
+<section id="cool-refuge-london" class="level1">
+<h1>Cool Refuge London</h1>
+<p><strong>Where should London prioritise cooling interventions?</strong></p>
+</section>
+</div>
+<p>London’s heat risk is not only about temperature. Vegetation cover, built surfaces, population exposure and access to cooling spaces all shape how heat is experienced locally. This project brings these layers together in an interactive web application to compare relative cooling conditions across London and identify where intervention may be more urgent.</p>
+<div class="metric-cards">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>6 Layers</strong><br><span>LST, NDVI, NDBI,<br>population density,<br>accessibility,<br>Cooling Condition Score</span></td>
+<td><strong>10–30 m</strong><br><span>NDVI and NDBI at 10 m;<br>LST and Cooling Condition<br>Score at 30 m</span></td>
+<td><strong>LSOA</strong><br><span>neighbourhood-scale<br>reporting for local<br>comparison</span></td>
+<td><strong>GEE + Leaflet</strong><br><span>Earth Engine processing<br>and browser-based<br>web mapping</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="project-summary" class="level2">
+<h2 class="anchored" data-anchor-id="project-summary">Project Summary</h2>
+<section id="policy-context" class="level3">
+<h3 class="anchored" data-anchor-id="policy-context">Policy Context</h3>
+<p>This project is framed by <strong>The London Plan 2021</strong>, particularly its focus on managing heat risk, expanding urban greening and improving fair access to climate adaptation resources. Policy SI 4 treats overheating as a planning issue, while Policy G5 highlights urban greening as part of climate resilience. Together, these policies support the need for a spatial tool that can connect heat exposure, green infrastructure and cooling access.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Policy / theme</th>
+<th>Relevance to the application</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>London Plan Policy SI 4: Managing Heat Risk</td>
+<td>Treats overheating as a planning concern. Land Surface Temperature is used to identify areas with stronger summer surface heat burden.</td>
+</tr>
+<tr class="even">
+<td>London Plan Policy G5: Urban Greening</td>
+<td>Links urban greening with climate adaptation. NDVI is used as a remote-sensing indicator of vegetation-related cooling potential.</td>
+</tr>
+<tr class="odd">
+<td>Good growth and access</td>
+<td>Population density and cool-space accessibility help show where cooling resources may not align with local need.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="problem-statement" class="level3">
+<h3 class="anchored" data-anchor-id="problem-statement">Problem Statement</h3>
+<p>Extreme heat is an increasing planning concern for London, but heat exposure is not evenly distributed. Dense built-up areas with limited vegetation and poor access to cool spaces may experience higher cooling needs than greener areas under the same city-wide heat warning. This application addresses the question: <strong>where should cooling interventions be prioritised?</strong></p>
+<p>The project translates remote-sensing, population and accessibility layers into a transparent spatial screening tool. Rather than treating heat risk as a single temperature surface, it compares several conditions that shape local cooling need: surface heat burden, vegetation cooling potential, built-surface intensity, population exposure and access to cooling resources.</p>
+</section>
+<section id="end-user" class="level3">
+<h3 class="anchored" data-anchor-id="end-user">End User</h3>
+<p>The application is designed for London borough officers, climate adaptation teams, urban greening practitioners and community-facing planners. These users need a quick way to compare neighbourhood-level heat burden, cooling capacity, population exposure and cool-space access.</p>
+<p>The tool does not replace detailed thermal-comfort modelling. Instead, it helps identify candidate areas for further investigation, greening investment, shade provision, cool-route planning and local climate resilience discussion.</p>
+</section>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The project combines environmental, demographic and accessibility datasets. Land Surface Temperature represents surface heat burden; NDVI represents vegetation-related cooling potential; NDBI represents built-surface intensity; population density represents exposure; cool-space accessibility represents access to cooling resources; and LSOA boundaries provide a reporting geography for comparison and querying.</p>
+<p>Raster layers are harmonised before index construction and then aggregated to LSOA level. This allows pixel-based environmental information to be converted into a neighbourhood-scale reporting unit that is easier to interpret in a planning context.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Indicator</th>
+<th>Dataset</th>
+<th>Description</th>
+<th>Resolution</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LST</strong></td>
+<td>Landsat 8/9 Collection 2 Level-2</td>
+<td>Summer land surface temperature representing surface heat burden</td>
+<td>30 m</td>
+<td><a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2">GEE Catalog</a></td>
+</tr>
+<tr class="even">
+<td><strong>NDVI</strong></td>
+<td>Sentinel-2 MSI Level-2A</td>
+<td>Vegetation cooling potential</td>
+<td>10 m</td>
+<td><a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED">GEE Catalog</a></td>
+</tr>
+<tr class="odd">
+<td><strong>NDBI</strong></td>
+<td>Sentinel-2 MSI Level-2A derived NDBI</td>
+<td>Built-surface intensity</td>
+<td>10 m</td>
+<td><a href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED">GEE Catalog</a></td>
+</tr>
+<tr class="even">
+<td><strong>Cooling Condition Score</strong></td>
+<td>Derived layer</td>
+<td>Composite index combining standardised LST, NDVI and NDBI</td>
+<td>30 m / LSOA summary</td>
+<td>Derived layer</td>
+</tr>
+<tr class="odd">
+<td><strong>Population density</strong></td>
+<td>Population density layer</td>
+<td>Exposure context for planning interpretation</td>
+<td>LSOA / raster</td>
+<td><a href="https://geoportal.statistics.gov.uk/">ONS</a> / <a href="https://hub.worldpop.org/">WorldPop</a></td>
+</tr>
+<tr class="even">
+<td><strong>Cool spaces / green-space accessibility</strong></td>
+<td>Cool spaces + catchment buffer</td>
+<td>Access to cooling resources</td>
+<td>Vector</td>
+<td><a href="https://data.london.gov.uk/">London Datastore</a> / <a href="https://www.openstreetmap.org/">OSM</a></td>
+</tr>
+<tr class="odd">
+<td><strong>LSOA boundary</strong></td>
+<td>LSOA 2021 boundary</td>
+<td>Reporting unit for zonal statistics and mapping</td>
+<td>Vector</td>
+<td><a href="https://geoportal.statistics.gov.uk/">ONS</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
+<p>The method is designed to keep the index transparent. LST, NDVI and NDBI are first brought onto a common 0–1 scale, so that temperature, vegetation and built-surface intensity can be compared without one unit dominating the calculation. These three environmental layers are then combined with equal weights to produce the <strong>Cooling Condition Score</strong>. Population density and cool-space accessibility are not part of the score itself; they are added afterwards to help interpret where poorer cooling conditions may matter most for planning.</p>
+<div class="method-svg-wrap">
+<svg viewbox="0 0 860 430" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerwidth="10" markerheight="10" refx="8" refy="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#23364d"></path>
+    </marker>
+  </defs>
+
+  <rect x="1" y="1" width="858" height="428" rx="26" fill="#f6fbfd" stroke="#d4e6ee"></rect>
+  <text x="44" y="46" class="figure-label">Cooling Condition Score workflow</text>
+
+  <rect class="svg-node node-heat" x="46" y="92" width="140" height="58" rx="15"></rect>
+  <text x="116" y="116" text-anchor="middle" class="node-title">LST</text>
+  <text x="116" y="136" text-anchor="middle" class="node-sub">surface heat burden</text>
+
+  <rect class="svg-node node-green" x="46" y="174" width="140" height="58" rx="15"></rect>
+  <text x="116" y="198" text-anchor="middle" class="node-title">NDVI</text>
+  <text x="116" y="218" text-anchor="middle" class="node-sub">vegetation cooling</text>
+
+  <rect class="svg-node node-built" x="46" y="256" width="140" height="58" rx="15"></rect>
+  <text x="116" y="280" text-anchor="middle" class="node-title">NDBI</text>
+  <text x="116" y="300" text-anchor="middle" class="node-sub">built intensity</text>
+
+  <path d="M186 121 C218 121, 218 203, 246 203" class="flow-line"></path>
+  <path d="M186 203 L246 203" class="flow-line"></path>
+  <path d="M186 285 C218 285, 218 203, 246 203" class="flow-line"></path>
+
+  <rect class="svg-node node-process" x="266" y="167" width="132" height="72" rx="16"></rect>
+  <text x="332" y="197" text-anchor="middle" class="node-title">Standardise</text>
+  <text x="332" y="220" text-anchor="middle" class="node-sub">0–1 scale</text>
+
+  <path d="M398 203 L448 203" class="flow-line arrow"></path>
+
+  <rect class="svg-node node-weight" x="468" y="167" width="132" height="72" rx="16"></rect>
+  <text x="534" y="197" text-anchor="middle" class="node-title">Equal weight</text>
+  <text x="534" y="220" text-anchor="middle" class="node-sub">1/3 each</text>
+
+  <path d="M600 203 L650 203" class="flow-line arrow"></path>
+
+  <rect class="svg-node node-score" x="670" y="158" width="150" height="90" rx="18"></rect>
+  <text x="745" y="193" text-anchor="middle" class="node-title">Cooling</text>
+  <text x="745" y="216" text-anchor="middle" class="node-title">Condition Score</text>
+  <text x="745" y="237" text-anchor="middle" class="node-sub">composite index</text>
+
+  <path d="M745 248 L745 272 L332 272 L332 320" class="flow-line arrow"></path>
+
+  <rect class="svg-node node-aggregate" x="246" y="326" width="172" height="68" rx="16"></rect>
+  <text x="332" y="354" text-anchor="middle" class="node-title">Aggregate to LSOA</text>
+  <text x="332" y="377" text-anchor="middle" class="node-sub">reporting unit</text>
+
+  <path d="M418 360 L468 360" class="flow-line arrow"></path>
+
+  <rect class="svg-node node-exposure" x="488" y="306" width="150" height="44" rx="13"></rect>
+  <text x="563" y="327" text-anchor="middle" class="node-title small">Population density</text>
+  <text x="563" y="343" text-anchor="middle" class="node-sub small">exposure context</text>
+
+  <rect class="svg-node node-access" x="488" y="370" width="150" height="44" rx="13"></rect>
+  <text x="563" y="391" text-anchor="middle" class="node-title small">Cool-space access</text>
+  <text x="563" y="407" text-anchor="middle" class="node-sub small">accessibility context</text>
+
+  <path d="M638 360 L688 360" class="flow-line arrow"></path>
+
+  <rect class="svg-node node-output" x="708" y="326" width="112" height="68" rx="16"></rect>
+  <text x="764" y="354" text-anchor="middle" class="node-title">Priority</text>
+  <text x="764" y="376" text-anchor="middle" class="node-title">Areas</text>
+</svg>
+</div>
+<p>The final output should be read as a relative screening layer. It helps compare local cooling conditions and highlight areas where environmental heat burden may overlap with higher population exposure or weaker access to cooling resources. It does not replace detailed thermal-comfort modelling, but it provides a clear basis for identifying candidate areas for further local investigation.</p>
+</section>
+<section id="interface" class="level2">
+<h2 class="anchored" data-anchor-id="interface">Interface</h2>
+<p>The interface is organised around layer comparison. Users can switch between LST, NDVI, NDBI, population density, cool-space accessibility and the Cooling Condition Score. The legend updates with the active layer, while the side panel explains how to interpret colour categories and what each layer contributes to the planning question.</p>
+<p>This design keeps the application accessible for non-technical users while still showing the analytical logic behind the final priority layer.</p>
+</section>
+<section id="the-application" class="level2">
+<h2 class="anchored" data-anchor-id="the-application">The Application</h2>
+<p>The embedded application below is the interactive front end of the project. It links directly to the Earth Engine application developed for the Cooling Condition Score interface.</p>
+<div class="app-wide">
+  <iframe src="https://casa0025-488411.projects.earthengine.app/view/cool-condition-score" loading="lazy"></iframe>
+</div>
+</section>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How it Works</h2>
+<p>The application is built as a short Earth Engine workflow rather than a black-box model. The main steps are preparing the summer satellite layers, converting the indicators to a common scale, calculating the Cooling Condition Score, and exporting LSOA-level results for web mapping.</p>
+<section id="earth-engine-preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="earth-engine-preprocessing">1. Earth Engine preprocessing</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> s2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'COPERNICUS/S2_SR_HARMONIZED'</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterBounds</span>(london)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2025-06-01'</span><span class="op">,</span> <span class="st">'2025-08-31'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">lt</span>(<span class="st">'CLOUDY_PIXEL_PERCENTAGE'</span><span class="op">,</span> <span class="dv">20</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">median</span>()<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> s2<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B8'</span><span class="op">,</span> <span class="st">'B4'</span>])</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'NDVI'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">clip</span>(london)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="standardisation-and-score-construction" class="level3">
+<h3 class="anchored" data-anchor-id="standardisation-and-score-construction">2. Standardisation and score construction</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">unitScale</span>(image<span class="op">,</span> bandName<span class="op">,</span> region) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> stats <span class="op">=</span> image<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">minMax</span>()<span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">geometry</span><span class="op">:</span> region<span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maxPixels</span><span class="op">:</span> <span class="fl">1e13</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> min <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(stats<span class="op">.</span><span class="fu">get</span>(bandName <span class="op">+</span> <span class="st">'_min'</span>))<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> max <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(stats<span class="op">.</span><span class="fu">get</span>(bandName <span class="op">+</span> <span class="st">'_max'</span>))<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> image<span class="op">.</span><span class="fu">subtract</span>(min)<span class="op">.</span><span class="fu">divide</span>(max<span class="op">.</span><span class="fu">subtract</span>(min))<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> lstNorm <span class="op">=</span> <span class="fu">unitScale</span>(lst<span class="op">,</span> <span class="st">'LST'</span><span class="op">,</span> london)<span class="op">;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndviNorm <span class="op">=</span> <span class="fu">unitScale</span>(ndvi<span class="op">,</span> <span class="st">'NDVI'</span><span class="op">,</span> london)<span class="op">;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndbiNorm <span class="op">=</span> <span class="fu">unitScale</span>(ndbi<span class="op">,</span> <span class="st">'NDBI'</span><span class="op">,</span> london)<span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> coolingScore <span class="op">=</span> lstNorm</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndviNorm)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndbiNorm)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">divide</span>(<span class="dv">3</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'Cooling_Condition_Score'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="lsoa-aggregation" class="level3">
+<h3 class="anchored" data-anchor-id="lsoa-aggregation">3. LSOA aggregation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> lsoaScore <span class="op">=</span> coolingScore<span class="op">.</span><span class="fu">reduceRegions</span>({</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">collection</span><span class="op">:</span> lsoa<span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">mean</span>()<span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Export<span class="op">.</span><span class="at">table</span><span class="op">.</span><span class="fu">toDrive</span>({</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">collection</span><span class="op">:</span> lsoaScore<span class="op">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">description</span><span class="op">:</span> <span class="st">'cooling_condition_score_lsoa'</span><span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">fileFormat</span><span class="op">:</span> <span class="st">'GeoJSON'</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="web-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="web-mapping">4. Web mapping</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fetch</span>(<span class="st">'data/cooling_condition_score_lsoa.geojson'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">then</span>(response <span class="kw">=&gt;</span> response<span class="op">.</span><span class="fu">json</span>())</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">then</span>(data <span class="kw">=&gt;</span> {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    L<span class="op">.</span><span class="fu">geoJSON</span>(data<span class="op">,</span> {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> feature <span class="kw">=&gt;</span> ({</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">weight</span><span class="op">:</span> <span class="fl">0.6</span><span class="op">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">color</span><span class="op">:</span> <span class="st">'#ffffff'</span><span class="op">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.75</span><span class="op">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fillColor</span><span class="op">:</span> <span class="fu">getScoreColour</span>(feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">mean</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">onEachFeature</span><span class="op">:</span> (feature<span class="op">,</span> layer) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        layer<span class="op">.</span><span class="fu">bindPopup</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>          <span class="vs">`LSOA: </span><span class="sc">${</span>feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">&lt;br&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="vs">           Cooling Condition Score: </span><span class="sc">${</span>feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">mean</span><span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        )<span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    })<span class="op">.</span><span class="fu">addTo</span>(map)<span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="reading-the-output" class="level3">
+<h3 class="anchored" data-anchor-id="reading-the-output">5. Reading the output</h3>
+<p>Higher Cooling Condition Score values indicate relatively warmer or less favourable cooling conditions. Lower values indicate relatively cooler or more favourable conditions. Population density and cool-space accessibility should be read alongside the score to identify where poor cooling conditions may affect more residents or coincide with weaker access to cooling resources.</p>
+</section>
+</section>
+<section id="limitations-and-future-development" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-and-future-development">Limitations and future development</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Limitation</th>
+<th>Implication</th>
+<th>Future development</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Temporal consistency</td>
+<td>Not every layer is available for the same year. Population and accessibility layers may need contextual interpretation rather than direct year-to-year comparison.</td>
+<td>Update all contextual layers where possible and document the reference year of each dataset.</td>
+</tr>
+<tr class="even">
+<td>Index assumption</td>
+<td>The Cooling Condition Score is a relative composite indicator. It does not directly measure human thermal comfort.</td>
+<td>Add humidity, wind, shade, land cover and exposure duration where data allow.</td>
+</tr>
+<tr class="odd">
+<td>Spatial aggregation</td>
+<td>LSOA summaries are useful for comparison but can smooth microclimate variation.</td>
+<td>Add finer-scale street or grid-level views for local design interpretation.</td>
+</tr>
+<tr class="even">
+<td>Validation</td>
+<td>The current index is theory- and literature-informed but not independently validated against observed heat-health outcomes.</td>
+<td>Compare priority areas with heat-health incidents, thermal comfort observations or local authority heat-risk evidence.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><p>Greater London Authority (2021) <em>The London Plan 2021</em>. London: Greater London Authority.</p></li>
+<li><p>Greater London Authority (2023) <em>Urban Greening Factor London Plan Guidance</em>. London: Greater London Authority.</p></li>
+<li><p>Google Earth Engine Data Catalogue (n.d.) <em>Landsat 8/9 Collection 2 Level-2</em>. Available at: https://developers.google.com/earth-engine/datasets</p></li>
+<li><p>Google Earth Engine Data Catalogue (n.d.) <em>Sentinel-2 MSI Level-2A Surface Reflectance</em>. Available at: https://developers.google.com/earth-engine/datasets</p></li>
+<li><p>Ahmad, B., Najar, M.B. and Ahmad, S. (2024) ‘Analysis of LST, NDVI and urban heat island patterns using Landsat satellite data’, <em>Journal of Atmospheric and Solar-Terrestrial Physics</em>, 265, 106359.</p></li>
+<li><p>Rao, P., Tassinari, P. and Torreggiani, D. (2023) ‘Exploring the land-use urban heat island nexus under climate change conditions using machine learning approach: A spatio-temporal analysis of remotely sensed data’, <em>Heliyon</em>, 9(7), e18423.</p></li>
+<li><p>Kabisch, N., Remahne, F., Ilsemann, C. and Fricke, L. (2023) ‘The urban heat island under extreme heat conditions: A case study of Hannover, Germany’, <em>Scientific Reports</em>, 13, 23017.</p></li>
+<li><p>Turner, R. et al.&nbsp;(2025) ‘Development and validation of the Global Urban Heat Vulnerability Index (GUHVI)’, <em>Urban Climate</em>, 64, 102716.</p></li>
+<li><p>OECD and Joint Research Centre (2008) <em>Handbook on Constructing Composite Indicators: Methodology and User Guide</em>. Paris: OECD Publishing</p></li>
+</ul>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toc = document.querySelector("#quarto-margin-sidebar");
+  const hero = document.querySelector(".hero-banner");
+
+  if (!toc || !hero) return;
+
+  function toggleToc() {
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    toc.classList.toggle("toc-visible", heroBottom < 120);
+  }
+
+  toggleToc();
+  window.addEventListener("scroll", toggleToc);
+  window.addEventListener("resize", toggleToc);
+});
+</script>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-    tabsets.forEach(function(tabset) {
-      const tabby = new Tabby('#' + tabset.id);
-    });
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -509,7 +685,7 @@ Kabisch, N., Remahne, F., Ilsemann, C., &amp; Fricke, L. (2023). The urban heat 
         },
         interactive: true,
         interactiveBorder: 10,
-        theme: 'light-border',
+        theme: 'quarto',
         placement: 'bottom-start',
       };
       if (contentFn) {
@@ -809,6 +985,7 @@ Kabisch, N., Remahne, F., Ilsemann, C., &amp; Fricke, L. (2023). The urban heat 
     }
   });
   </script>
+</div> <!-- /content -->
 
 
 
