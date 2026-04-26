@@ -70,9 +70,9 @@ The method is designed as a transparent environmental screening framework rather
 
 The **Cooling Condition Score** is calculated as:
 
-\[
+$$
 CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
-\]
+$$
 
 In this score, higher values indicate relatively poorer cooling conditions, while lower values indicate relatively more favourable cooling conditions. Population density and cool-space accessibility are not included in the score itself. They are used afterwards as interpretation layers to identify where poor environmental cooling conditions may affect more residents or coincide with weaker access to cooling resources.
 
