@@ -748,13 +748,28 @@ main.content {
 }
 
 
-/* FINAL TOC POSITION FIX */
+/* FINAL: move right TOC closer to main text */
 @media (min-width: 1200px) {
+  body .page-columns {
+    grid-template-columns:
+      [screen-start] 1fr
+      [page-start] 70px
+      [page-start-inset] 70px
+      [body-start-outset] 70px
+      [body-start] 860px
+      [body-end]
+      32px
+      [body-end-outset]
+      240px
+      [page-end-inset]
+      40px
+      [page-end]
+      1fr
+      [screen-end] !important;
+  }
+
   #quarto-margin-sidebar {
-    position: fixed !important;
-    top: 110px !important;
-    right: 150px !important;
+    grid-column: body-end-outset / page-end-inset !important;
     width: 240px !important;
-    margin: 0 !important;
   }
 }
