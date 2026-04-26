@@ -1,0 +1,295 @@
+---
+title: "Cool Refuge London"
+execute:
+  echo: false
+---
+
+::: {.hero-banner}
+
+Heat risk · Green infrastructure · Cooling access
+
+# Cool Refuge London
+
+**Where should London prioritise cooling interventions?**
+
+:::
+
+London's heat risk is not only about temperature. Vegetation cover, built surfaces, population exposure and access to cooling spaces all shape how heat is experienced locally. This project brings these layers together in an interactive web application to compare relative cooling conditions across London and identify where intervention may be more urgent.
+
+::: {.metric-cards}
+
+| | | | |
+|---|---|---|---|
+| <strong>6 Layers</strong><br><span>LST, NDVI, NDBI,<br>population density,<br>accessibility,<br>Cooling Condition Score</span> | <strong>10–30 m</strong><br><span>NDVI and NDBI at 10 m;<br>LST and Cooling Condition<br>Score at 30 m</span> | <strong>LSOA</strong><br><span>neighbourhood-scale<br>reporting for local<br>comparison</span> | <strong>GEE + Leaflet</strong><br><span>Earth Engine processing<br>and browser-based<br>web mapping</span> |
+
+:::
+
+## Project Summary
+
+### Policy Context
+
+This project is framed by **The London Plan 2021**, particularly its focus on managing heat risk, expanding urban greening and improving fair access to climate adaptation resources. Policy SI 4 treats overheating as a planning issue, while Policy G5 highlights urban greening as part of climate resilience. Together, these policies support the need for a spatial tool that can connect heat exposure, green infrastructure and cooling access.
+
+| Policy / theme | Relevance to the application |
+|---|---|
+| London Plan Policy SI 4: Managing Heat Risk | Treats overheating as a planning concern. Land Surface Temperature is used to identify areas with stronger summer surface heat burden. |
+| London Plan Policy G5: Urban Greening | Links urban greening with climate adaptation. NDVI is used as a remote-sensing indicator of vegetation-related cooling potential. |
+| Good growth and access | Population density and cool-space accessibility help show where cooling resources may not align with local need. |
+
+### Problem Statement
+
+Extreme heat is an increasing planning concern for London, but heat exposure is not evenly distributed. Dense built-up areas with limited vegetation and poor access to cool spaces may experience higher cooling needs than greener areas under the same city-wide heat warning. This application addresses the question: **where should cooling interventions be prioritised?**
+
+The project translates remote-sensing, population and accessibility layers into a transparent spatial screening tool. Rather than treating heat risk as a single temperature surface, it compares several conditions that shape local cooling need: surface heat burden, vegetation cooling potential, built-surface intensity, population exposure and access to cooling resources.
+
+### End User
+
+The application is designed for London borough officers, climate adaptation teams, urban greening practitioners and community-facing planners. These users need a quick way to compare neighbourhood-level heat burden, cooling capacity, population exposure and cool-space access.
+
+The tool does not replace detailed thermal-comfort modelling. Instead, it helps identify candidate areas for further investigation, greening investment, shade provision, cool-route planning and local climate resilience discussion.
+
+## Data
+
+The project combines environmental, demographic and accessibility datasets. Land Surface Temperature represents surface heat burden; NDVI represents vegetation-related cooling potential; NDBI represents built-surface intensity; population density represents exposure; cool-space accessibility represents access to cooling resources; and LSOA boundaries provide a reporting geography for comparison and querying.
+
+Raster layers are harmonised before index construction and then aggregated to LSOA level. This allows pixel-based environmental information to be converted into a neighbourhood-scale reporting unit that is easier to interpret in a planning context.
+
+| Indicator | Dataset | Description | Resolution | Source |
+|---|---|---|---|---|
+| **LST** | Landsat 8/9 Collection 2 Level-2 | Summer land surface temperature representing surface heat burden | 30 m | [GEE Catalog](https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2) |
+| **NDVI** | Sentinel-2 MSI Level-2A | Vegetation cooling potential | 10 m | [GEE Catalog](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED) |
+| **NDBI** | Sentinel-2 MSI Level-2A derived NDBI | Built-surface intensity | 10 m | [GEE Catalog](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED) |
+| **Cooling Condition Score** | Derived layer | Composite index combining standardised LST, NDVI and NDBI | 30 m / LSOA summary | Derived layer |
+| **Population density** | Population density layer | Exposure context for planning interpretation | LSOA / raster | [ONS](https://geoportal.statistics.gov.uk/) / [WorldPop](https://hub.worldpop.org/) |
+| **Cool spaces / green-space accessibility** | Cool spaces + catchment buffer | Access to cooling resources | Vector | [London Datastore](https://data.london.gov.uk/) / [OSM](https://www.openstreetmap.org/) |
+| **LSOA boundary** | LSOA 2021 boundary | Reporting unit for zonal statistics and mapping | Vector | [ONS](https://geoportal.statistics.gov.uk/) |
+
+## Methodology
+
+The method is designed to keep the index transparent. LST, NDVI and NDBI are first brought onto a common 0–1 scale, so that temperature, vegetation and built-surface intensity can be compared without one unit dominating the calculation. These three environmental layers are then combined with equal weights to produce the **Cooling Condition Score**. Population density and cool-space accessibility are not part of the score itself; they are added afterwards to help interpret where poorer cooling conditions may matter most for planning.
+
+```{=html}
+<div class="method-svg-wrap">
+<svg viewBox="0 0 860 430" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#23364d"/>
+    </marker>
+  </defs>
+
+  <rect x="1" y="1" width="858" height="428" rx="26" fill="#f6fbfd" stroke="#d4e6ee"/>
+  <text x="44" y="46" class="figure-label">Cooling Condition Score workflow</text>
+
+  <rect class="svg-node node-heat" x="46" y="92" width="140" height="58" rx="15"/>
+  <text x="116" y="116" text-anchor="middle" class="node-title">LST</text>
+  <text x="116" y="136" text-anchor="middle" class="node-sub">surface heat burden</text>
+
+  <rect class="svg-node node-green" x="46" y="174" width="140" height="58" rx="15"/>
+  <text x="116" y="198" text-anchor="middle" class="node-title">NDVI</text>
+  <text x="116" y="218" text-anchor="middle" class="node-sub">vegetation cooling</text>
+
+  <rect class="svg-node node-built" x="46" y="256" width="140" height="58" rx="15"/>
+  <text x="116" y="280" text-anchor="middle" class="node-title">NDBI</text>
+  <text x="116" y="300" text-anchor="middle" class="node-sub">built intensity</text>
+
+  <path d="M186 121 C218 121, 218 203, 246 203" class="flow-line"/>
+  <path d="M186 203 L246 203" class="flow-line"/>
+  <path d="M186 285 C218 285, 218 203, 246 203" class="flow-line"/>
+
+  <rect class="svg-node node-process" x="266" y="167" width="132" height="72" rx="16"/>
+  <text x="332" y="197" text-anchor="middle" class="node-title">Standardise</text>
+  <text x="332" y="220" text-anchor="middle" class="node-sub">0–1 scale</text>
+
+  <path d="M398 203 L448 203" class="flow-line arrow"/>
+
+  <rect class="svg-node node-weight" x="468" y="167" width="132" height="72" rx="16"/>
+  <text x="534" y="197" text-anchor="middle" class="node-title">Equal weight</text>
+  <text x="534" y="220" text-anchor="middle" class="node-sub">1/3 each</text>
+
+  <path d="M600 203 L650 203" class="flow-line arrow"/>
+
+  <rect class="svg-node node-score" x="670" y="158" width="150" height="90" rx="18"/>
+  <text x="745" y="193" text-anchor="middle" class="node-title">Cooling</text>
+  <text x="745" y="216" text-anchor="middle" class="node-title">Condition Score</text>
+  <text x="745" y="237" text-anchor="middle" class="node-sub">composite index</text>
+
+  <path d="M745 248 L745 272 L332 272 L332 320" class="flow-line arrow"/>
+
+  <rect class="svg-node node-aggregate" x="246" y="326" width="172" height="68" rx="16"/>
+  <text x="332" y="354" text-anchor="middle" class="node-title">Aggregate to LSOA</text>
+  <text x="332" y="377" text-anchor="middle" class="node-sub">reporting unit</text>
+
+  <path d="M418 360 L468 360" class="flow-line arrow"/>
+
+  <rect class="svg-node node-exposure" x="488" y="306" width="150" height="44" rx="13"/>
+  <text x="563" y="327" text-anchor="middle" class="node-title small">Population density</text>
+  <text x="563" y="343" text-anchor="middle" class="node-sub small">exposure context</text>
+
+  <rect class="svg-node node-access" x="488" y="370" width="150" height="44" rx="13"/>
+  <text x="563" y="391" text-anchor="middle" class="node-title small">Cool-space access</text>
+  <text x="563" y="407" text-anchor="middle" class="node-sub small">accessibility context</text>
+
+  <path d="M638 360 L688 360" class="flow-line arrow"/>
+
+  <rect class="svg-node node-output" x="708" y="326" width="112" height="68" rx="16"/>
+  <text x="764" y="354" text-anchor="middle" class="node-title">Priority</text>
+  <text x="764" y="376" text-anchor="middle" class="node-title">Areas</text>
+</svg>
+</div>
+```
+
+The final output should be read as a relative screening layer. It helps compare local cooling conditions and highlight areas where environmental heat burden may overlap with higher population exposure or weaker access to cooling resources. It does not replace detailed thermal-comfort modelling, but it provides a clear basis for identifying candidate areas for further local investigation.
+
+## Interface
+
+The interface is organised around layer comparison. Users can switch between LST, NDVI, NDBI, population density, cool-space accessibility and the Cooling Condition Score. The legend updates with the active layer, while the side panel explains how to interpret colour categories and what each layer contributes to the planning question.
+
+This design keeps the application accessible for non-technical users while still showing the analytical logic behind the final priority layer.
+
+## The Application
+
+The embedded application below is the interactive front end of the project. It links directly to the Earth Engine application developed for the Cooling Condition Score interface.
+
+```{=html}
+<div class="app-wide">
+  <iframe src="https://casa0025-488411.projects.earthengine.app/view/cool-condition-score" loading="lazy"></iframe>
+</div>
+```
+
+## How it Works
+
+The application is built as a short Earth Engine workflow rather than a black-box model. The main steps are preparing the summer satellite layers, converting the indicators to a common scale, calculating the Cooling Condition Score, and exporting LSOA-level results for web mapping.
+
+### 1. Earth Engine preprocessing
+
+```js
+var s2 = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
+  .filterBounds(london)
+  .filterDate('2025-06-01', '2025-08-31')
+  .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20))
+  .median();
+
+var ndvi = s2.normalizedDifference(['B8', 'B4'])
+  .rename('NDVI')
+  .clip(london);
+```
+
+### 2. Standardisation and score construction
+
+```js
+function unitScale(image, bandName, region) {
+  var stats = image.reduceRegion({
+    reducer: ee.Reducer.minMax(),
+    geometry: region,
+    scale: 30,
+    maxPixels: 1e13
+  });
+
+  var min = ee.Number(stats.get(bandName + '_min'));
+  var max = ee.Number(stats.get(bandName + '_max'));
+
+  return image.subtract(min).divide(max.subtract(min));
+}
+
+var lstNorm = unitScale(lst, 'LST', london);
+var ndviNorm = unitScale(ndvi, 'NDVI', london);
+var ndbiNorm = unitScale(ndbi, 'NDBI', london);
+
+var coolingScore = lstNorm
+  .add(ndviNorm)
+  .add(ndbiNorm)
+  .divide(3)
+  .rename('Cooling_Condition_Score');
+```
+
+### 3. LSOA aggregation
+
+```js
+var lsoaScore = coolingScore.reduceRegions({
+  collection: lsoa,
+  reducer: ee.Reducer.mean(),
+  scale: 30
+});
+
+Export.table.toDrive({
+  collection: lsoaScore,
+  description: 'cooling_condition_score_lsoa',
+  fileFormat: 'GeoJSON'
+});
+```
+
+### 4. Web mapping
+
+```js
+fetch('data/cooling_condition_score_lsoa.geojson')
+  .then(response => response.json())
+  .then(data => {
+    L.geoJSON(data, {
+      style: feature => ({
+        weight: 0.6,
+        color: '#ffffff',
+        fillOpacity: 0.75,
+        fillColor: getScoreColour(feature.properties.mean)
+      }),
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(
+          `LSOA: ${feature.properties.name}<br>
+           Cooling Condition Score: ${feature.properties.mean}`
+        );
+      }
+    }).addTo(map);
+  });
+```
+
+### 5. Reading the output
+
+Higher Cooling Condition Score values indicate relatively warmer or less favourable cooling conditions. Lower values indicate relatively cooler or more favourable conditions. Population density and cool-space accessibility should be read alongside the score to identify where poor cooling conditions may affect more residents or coincide with weaker access to cooling resources.
+
+## Limitations and future development
+
+| Limitation | Implication | Future development |
+|---|---|---|
+| Temporal consistency | Not every layer is available for the same year. Population and accessibility layers may need contextual interpretation rather than direct year-to-year comparison. | Update all contextual layers where possible and document the reference year of each dataset. |
+| Index assumption | The Cooling Condition Score is a relative composite indicator. It does not directly measure human thermal comfort. | Add humidity, wind, shade, land cover and exposure duration where data allow. |
+| Spatial aggregation | LSOA summaries are useful for comparison but can smooth microclimate variation. | Add finer-scale street or grid-level views for local design interpretation. |
+| Validation | The current index is theory- and literature-informed but not independently validated against observed heat-health outcomes. | Compare priority areas with heat-health incidents, thermal comfort observations or local authority heat-risk evidence. |
+
+## References
+
+- Greater London Authority (2021) *The London Plan 2021*. London: Greater London Authority.
+
+- Greater London Authority (2023) *Urban Greening Factor London Plan Guidance*. London: Greater London Authority.
+
+- Google Earth Engine Data Catalogue (n.d.) *Landsat 8/9 Collection 2 Level-2*. Available at: https://developers.google.com/earth-engine/datasets
+
+- Google Earth Engine Data Catalogue (n.d.) *Sentinel-2 MSI Level-2A Surface Reflectance*. Available at: https://developers.google.com/earth-engine/datasets
+
+- Ahmad, B., Najar, M.B. and Ahmad, S. (2024) ‘Analysis of LST, NDVI and urban heat island patterns using Landsat satellite data’, *Journal of Atmospheric and Solar-Terrestrial Physics*, 265, 106359.
+
+- Rao, P., Tassinari, P. and Torreggiani, D. (2023) ‘Exploring the land-use urban heat island nexus under climate change conditions using machine learning approach: A spatio-temporal analysis of remotely sensed data’, *Heliyon*, 9(7), e18423.
+
+- Kabisch, N., Remahne, F., Ilsemann, C. and Fricke, L. (2023) ‘The urban heat island under extreme heat conditions: A case study of Hannover, Germany’, *Scientific Reports*, 13, 23017.
+
+- Turner, R. et al. (2025) ‘Development and validation of the Global Urban Heat Vulnerability Index (GUHVI)’, *Urban Climate*, 64, 102716.
+
+- OECD and Joint Research Centre (2008) *Handbook on Constructing Composite Indicators: Methodology and User Guide*. Paris: OECD Publishing.
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toc = document.querySelector("#quarto-margin-sidebar");
+  const hero = document.querySelector(".hero-banner");
+
+  if (!toc || !hero) return;
+
+  function toggleToc() {
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    toc.classList.toggle("toc-visible", heroBottom < 120);
+  }
+
+  toggleToc();
+  window.addEventListener("scroll", toggleToc);
+  window.addEventListener("resize", toggleToc);
+});
+</script>

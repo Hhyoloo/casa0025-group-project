@@ -1,0 +1,29 @@
+project:
+  type: website
+
+website:
+  title: "Cool Refuge London"
+  navbar:
+    left:
+      - text: "Summary"
+        href: "#project-summary"
+      - text: "Data"
+        href: "#data"
+      - text: "Method"
+        href: "#methodology"
+      - text: "Interface"
+        href: "#interface"
+      - text: "Workflow"
+        href: "#how-it-works"
+      - text: "References"
+        href: "#references"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: right
+    page-layout: full
+    code-fold: true
+    code-tools: false
