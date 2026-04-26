@@ -273,11 +273,11 @@ The app provides actionable insights for London’s urban heat management by ide
 
 ## Limitations and future development
 
-• Static Models: The current analysis is based on precomputed CCS trends (2022–2025), which limits its adaptability to sudden environmental shifts or new urban developments. Integrating real-time satellite feeds or live sensor data could enhance the app’s responsiveness to active heatwave events.
-
-• Granularity of Analysis: The app currently provides analysis at the LSOA level. Providing more detailed data at the street or block level would allow for more precise planning, helping users decide the exact locations for new trees or cooling infrastructure.
-
-• Report Export: The app lacks a feature to export analysis reports or map snapshots. Adding this functionality would be essential for stakeholders to document their findings and share evidence-based insights during official planning consultations or cross-departmental meetings.
+| Limitation | Implication | Future development |
+| :--- | :--- | :--- |
+| [cite_start]**Static Models** [cite: 27] | [cite_start]Current analysis is based on precomputed CCS trends (2022–2025), which limits adaptability to sudden environmental shifts or new urban developments[cite: 27]. | [cite_start]Integrate real-time satellite feeds or live sensor data to enhance responsiveness to active heatwave events[cite: 28]. |
+| [cite_start]**Granularity of Analysis** [cite: 29] | [cite_start]Analysis at the LSOA level makes it difficult for users to decide the exact locations for new trees or cooling infrastructure[cite: 30]. | [cite_start]Provide more detailed data at the street or block level to allow for more precise planning[cite: 30]. |
+| [cite_start]**Report Export** [cite: 31] | [cite_start]Lack of export features makes it difficult for stakeholders to document findings or share evidence-based insights during planning consultations and meetings[cite: 32]. | [cite_start]Add functionality to export analysis reports or map snapshots to support documentation and cross-departmental sharing[cite: 32]. |
 
 ## References
 
