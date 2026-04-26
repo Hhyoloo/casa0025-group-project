@@ -26,8 +26,6 @@ London's heat risk is not only about temperature. Vegetation cover, built surfac
 
 ## Project Summary
 
-### Policy Context
-
 The project develops an application using Google Earth Engine for city planners and policymakers to evaluate urban cooling resilience across London at the LSOA level. The model calculates a Cooling Condition Score (CCS) using vegetation (NDVI), built-up (NDBI), and land surface temperature (LST) data, following the Equal Weighting Approach (EWA) established by Turner et al. (2025). Based on the London Policy G5 (Urban Greening) framework launched in 2021, this study tracks CCS trends between 2022 and 2025 and the distribution of official "Cool Spaces". By comparing these layers, the platform reveals the spatial alignment between cooling resources and actual neighborhood needs, helping to identify whether interventions are accurately directed at high-vulnerability areas. This provides a data-driven basis for targeted interventions and optimized resource allocation.
 
 ### Problem Statement
