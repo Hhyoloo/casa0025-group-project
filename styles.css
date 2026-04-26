@@ -746,3 +746,13 @@ main.content {
   opacity: 1;
   pointer-events: auto;
 }
+
+#quarto-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#quarto-margin-sidebar {
+  width: 240px;
+  right: 40px;
+}
