@@ -28,6 +28,17 @@ London's heat risk is not only about temperature. Vegetation cover, built surfac
 
 The project develops an application using Google Earth Engine for city planners and policymakers to evaluate urban cooling resilience across London at the LSOA level. The model calculates a Cooling Condition Score (CCS) using vegetation (NDVI), built-up (NDBI), and land surface temperature (LST) data, following the Equal Weighting Approach (EWA) established by Turner et al. (2025). Based on the London Policy G5 (Urban Greening) framework launched in 2021, this study tracks CCS trends between 2022 and 2025 and the distribution of official "Cool Spaces". By comparing these layers, the platform reveals the spatial alignment between cooling resources and actual neighborhood needs, helping to identify whether interventions are accurately directed at high-vulnerability areas. This provides a data-driven basis for targeted interventions and optimized resource allocation.
 
+### Policy Context
+
+This project is framed by **The London Plan 2021**, particularly its focus on managing heat risk, expanding urban greening and improving fair access to climate adaptation resources. Policy SI 4 treats overheating as a planning issue, while Policy G5 highlights urban greening as part of climate resilience. Together, these policies support the need for a spatial tool that can connect heat exposure, green infrastructure and cooling access.
+
+| Policy / theme | Relevance to the application |
+|---|---|
+| London Plan Policy SI 4: Managing Heat Risk | Treats overheating as a planning concern. Land Surface Temperature is used to identify areas with stronger summer surface heat burden. |
+| London Plan Policy G5: Urban Greening | Links urban greening with climate adaptation. NDVI is used as a remote-sensing indicator of vegetation-related cooling potential. |
+| Good growth and access | Population density and cool-space accessibility help show where cooling resources may not align with local need. |
+
+
 ### Problem Statement
 
 London faces rising heat risks due to the Urban Heat Island effect, creating an urgent need for neighborhood-level cooling research. While London Policy G5 (2021) set ambitious greening targets, evaluating their real-world impact at the LSOA scale remains difficult. Our application addresses this gap by offering a platform for planners to visualize Cooling Condition Scores (CCS) alongside official 2025 Cool Spaces. By bridging Turner et al.’s (2025) methodology with local governance, it supports evidence-based planning and ensures cooling resources reach the neighborhoods that need them most.
