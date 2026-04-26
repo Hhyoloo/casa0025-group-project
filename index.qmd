@@ -272,10 +272,11 @@ Higher Cooling Condition Score values indicate relatively warmer or less favoura
 
 - Turner, R. et al. (2025) ‘Development and validation of the Global Urban Heat Vulnerability Index (GUHVI)’, *Urban Climate*, 64, 102716.
 
-- OECD and Joint Research Centre (2008) *Handbook on Constructing Composite Indicators: Methodology and User Guide*. Paris: OECD Publishing.
+- OECD and Joint Research Centre (2008) *Handbook on Constructing Composite Indicators: Methodology and User Guide*. Paris: OECD Publishing
 
 
 
+```{=html}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const toc = document.querySelector("#quarto-margin-sidebar");
@@ -293,3 +294,4 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", toggleToc);
 });
 </script>
+```
