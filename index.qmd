@@ -80,7 +80,7 @@ $$
 
 Equal weighting is applied because no validated local evidence currently supports assigning differentiated weights across the three indicators. This follows the equal weighting approach commonly used in environmental composite indices when transparency and comparability are prioritised over statistical weighting (OECD, 2008).
 
-Population density and cool-space accessibility are not included directly in the score itself. They are introduced afterwards as interpretation layers: population density contributes to a separate heat exposure layer derived together with 2021 LST, while cool-space locations are used to assess local accessibility through 500 m catchment buffers. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.
+Heat exposure and cool-space accessibility are not included directly in the Cooling Condition Score. They are introduced afterwards as interpretation layers: heat exposure combines 2021 LST with census population count at LSOA level, while cool-space locations are used to assess local accessibility through 500 m catchment buffers. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.
 
 ```{=html}
 <div class="method-svg-wrap">
@@ -137,7 +137,7 @@ Population density and cool-space accessibility are not included directly in the
 
   <rect class="svg-node node-exposure" x="488" y="306" width="150" height="44" rx="13"/>
   <text x="563" y="327" text-anchor="middle" class="node-title small">Heat exposure</text>
-  <text x="563" y="343" text-anchor="middle" class="node-sub small">LST + population</text>
+  <text x="563" y="343" text-anchor="middle" class="node-sub small">LST + population count</text>
 
   <rect class="svg-node node-access" x="488" y="370" width="150" height="44" rx="13"/>
   <text x="563" y="391" text-anchor="middle" class="node-title small">Cool-space access</text>
@@ -152,7 +152,7 @@ Population density and cool-space accessibility are not included directly in the
 </div>
 ```
 
-The final output should be read as a relative screening layer rather than a direct thermal-comfort measurement. CCS supports comparison across neighbourhoods, while the additional exposure and accessibility layers help identify where poorer cooling conditions may coincide with higher resident exposure or weaker access to cooling resources.
+The final output should be read as a relative screening layer rather than a direct thermal-comfort measurement. CCS supports comparison across neighbourhoods, while the additional heat exposure and accessibility layers help identify where poorer cooling conditions may coincide with higher resident exposure or weaker access to cooling resources.
 
 ## Interface
 
