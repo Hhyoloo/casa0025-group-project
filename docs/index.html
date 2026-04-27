@@ -465,14 +465,53 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 </section>
 <section id="interface" class="level2">
 <h2 class="anchored" data-anchor-id="interface">Interface</h2>
-<p>The interface is organised around layer comparison. Users can switch between LST, NDVI, NDBI, population density, cool-space accessibility and the Cooling Condition Score. The legend updates with the active layer, while the side panel explains how to interpret colour categories and what each layer contributes to the planning question.</p>
+<p>The interface is organised around layer comparison. Users can switch between urban heat environment, cooling condition accessment, and heat exposure &amp; cool-space accessibility. The design intends to illustate a progressive causal chain: “The urban heat environment in London exhibits significant spatial imbalance between 2022 and 2025. Cool condition ratings reveal structural cold-warm zones, while population heat exposure analysis indicates a spatial mismatch between highly exposed populations and indoor cool resources.”</p>
+<p>The platform is structured around three thematic modules, navigable via a top bar. All modules share a consistent grey basemap and a floating legend panel, with layer opacity adjustable throughout.</p>
+<p>Module 1: Heat Environment displays land surface temperature (LST), vegetation cover (NDVI), and built-up intensity (NDBI) derived from Landsat 8/9 and Sentinel-2 imagery for 2022, 2024, and 2025. Users can select indicators and years via dropdown menus, adjust layer opacity, and click any LSOA to retrieve zonal statistics.</p>
+<p>Module 2: Cooling Condition Score visualises a composite indicator combining LST, NDVI, and NDBI into a standardised cooling score, with options to view annual snapshots or the 2022–2025 change layer. A filter control isolates areas of decline or improvement, and a pie chart summarises the class composition of visible LSOAs. Indoor cool space sites are overlaid to identidy if there are enough indoor cool spaces in those areas that are getting hot.</p>
+<p>Module 3: Heat Exposure and Cool Spaces maps population-weighted heat exposure at LSOA level, overlaid with 500-metre accessibility catchments around indoor cool space venues (approximately a 7-minute walk, the human-centered design standard for heat relief access). A pie chart quantifies the proportion of high-exposure areas covered by cool space catchments, identifying spatial gaps in provision.</p>
 <p>This design keeps the application accessible for non-technical users while still showing the analytical logic behind the final priority layer.</p>
+<div id="fig-interface" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-interface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/interface1.png" class="img-fluid figure-img"></p>
+<figcaption>Cooling Condition Score</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/interface2.png" class="img-fluid figure-img"></p>
+<figcaption>Cooling declining areas</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/interface3.png" class="img-fluid figure-img"></p>
+<figcaption>Highly heat exposure areas</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-interface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: By filtering indicators and overlaying layers, we found that most cool spots are located in areas with hotter environments. However, based on the overall score changes, the cooling conditions in most parts of London are deteriorating and have failed to effectively bridge the gap in cool spaces. Therefore, approximately 76% of the population still suffer from low cool accessibility.).
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="the-application" class="level2">
 <h2 class="anchored" data-anchor-id="the-application">The Application</h2>
-<p>The embedded application below is the interactive front end of the project. It links directly to the Earth Engine application developed for the Cooling Condition Score interface.</p>
+<p>The embedded application below is the interactive front end of the project. With an interactive, module-based interface built on Google Earth Engine, integrating multi-year remote sensing data with spatial analysis to support environmental cooling conditions assessment across London.</p>
 <div class="app-wide">
-  <iframe src="https://casa0025-488411.projects.earthengine.app/view/cool-condition-score" loading="lazy"></iframe>
+  <iframe src="https://still-cipher-492419-m3.projects.earthengine.app/view/cool-refuge-london" loading="lazy"></iframe>
 </div>
 </section>
 <section id="how-it-works" class="level2">
