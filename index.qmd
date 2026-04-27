@@ -179,6 +179,8 @@ The code below shows simplified extracts from the final Earth Engine script. The
 
 ### 1. Earth Engine assets
 
+::: {.code-scroll}
+
 ```js
 var london = ee.FeatureCollection(
   'projects/still-cipher-492419-m3/assets/London_GLA_Boundary'
@@ -201,7 +203,11 @@ var lsoaExposure = ee.FeatureCollection(
 );
 ```
 
+:::
+
 ### 2. Heat environment layers
+
+::: {.code-scroll}
 
 ```js
 function getLST(year) {
@@ -237,7 +243,11 @@ function getVegBuilt(year) {
 }
 ```
 
+:::
+
 ### 3. Cooling Condition Score layers
+
+::: {.code-scroll}
 
 ```js
 var ccsLayerConfig = {
@@ -262,7 +272,11 @@ function getCCSStyled(layerName) {
 }
 ```
 
+:::
+
 ### 4. Heat exposure and cool-space access
+
+::: {.code-scroll}
 
 ```js
 var coolspacePoints = coolspace.map(function(f) {
@@ -284,7 +298,11 @@ var img = lsoaExposure.reduceToImage({
 });
 ```
 
+:::
+
 ### 5. Application structure
+
+::: {.code-scroll}
 
 ```js
 var moduleNames = [
@@ -299,6 +317,8 @@ function switchModule(index) {
   modules[index].refresh();
 }
 ```
+
+:::
 
 ### 6. Reading the output
 

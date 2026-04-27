@@ -481,6 +481,7 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 <p>The code below shows simplified extracts from the final Earth Engine script. The full source code is provided in the GitHub repository.</p>
 <section id="earth-engine-assets" class="level3">
 <h3 class="anchored" data-anchor-id="earth-engine-assets">1. Earth Engine assets</h3>
+<div class="code-scroll">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> london <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'projects/still-cipher-492419-m3/assets/London_GLA_Boundary'</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
@@ -500,9 +501,11 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> lsoaExposure <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">'projects/still-cipher-492419-m3/assets/London_HeatExposure_2021'</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="heat-environment-layers" class="level3">
 <h3 class="anchored" data-anchor-id="heat-environment-layers">2. Heat environment layers</h3>
+<div class="code-scroll">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getLST</span>(year) {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> l8 <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterBounds</span>(london<span class="op">.</span><span class="fu">geometry</span>())</span>
@@ -534,9 +537,11 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> s2<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B8'</span><span class="op">,</span> <span class="st">'B4'</span>])<span class="op">.</span><span class="fu">rename</span>(<span class="st">'NDVI'</span>)</span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">addBands</span>(s2<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B11'</span><span class="op">,</span> <span class="st">'B8'</span>])<span class="op">.</span><span class="fu">rename</span>(<span class="st">'NDBI'</span>))<span class="op">;</span></span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="cooling-condition-score-layers" class="level3">
 <h3 class="anchored" data-anchor-id="cooling-condition-score-layers">3. Cooling Condition Score layers</h3>
+<div class="code-scroll">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ccsLayerConfig <span class="op">=</span> {</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'CCS Change 2022-2025'</span><span class="op">:</span> {<span class="dt">field</span><span class="op">:</span> <span class="st">'cri_change'</span><span class="op">,</span> <span class="dt">type</span><span class="op">:</span> <span class="st">'change'</span>}<span class="op">,</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'CCS 2025'</span><span class="op">:</span> {<span class="dt">field</span><span class="op">:</span> <span class="st">'cri25_mean'</span><span class="op">,</span> <span class="dt">type</span><span class="op">:</span> <span class="st">'score'</span>}<span class="op">,</span></span>
@@ -557,9 +562,11 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">classifyScore</span>(f<span class="op">,</span> cfg<span class="op">.</span><span class="at">field</span>)<span class="op">;</span></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="heat-exposure-and-cool-space-access" class="level3">
 <h3 class="anchored" data-anchor-id="heat-exposure-and-cool-space-access">4. Heat exposure and cool-space access</h3>
+<div class="code-scroll">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> coolspacePoints <span class="op">=</span> coolspace<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(f) {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> f<span class="op">.</span><span class="fu">setGeometry</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    ee<span class="op">.</span><span class="at">Geometry</span><span class="op">.</span><span class="fu">Point</span>(</span>
@@ -577,9 +584,11 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">properties</span><span class="op">:</span> [<span class="st">'exposure'</span>]<span class="op">,</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">first</span>()</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="application-structure" class="level3">
 <h3 class="anchored" data-anchor-id="application-structure">5. Application structure</h3>
+<div class="code-scroll">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> moduleNames <span class="op">=</span> [</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Module 1: Heat Environment'</span><span class="op">,</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Module 2: Cooling Condition Score'</span><span class="op">,</span></span>
@@ -591,6 +600,7 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  leftContainer<span class="op">.</span><span class="fu">add</span>(modules[index]<span class="op">.</span><span class="at">panel</span>)<span class="op">;</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  modules[index]<span class="op">.</span><span class="fu">refresh</span>()<span class="op">;</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="reading-the-output" class="level3">
 <h3 class="anchored" data-anchor-id="reading-the-output">6. Reading the output</h3>
