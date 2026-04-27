@@ -775,9 +775,18 @@ main.content {
 }
 }
 
+.code-scroll {
+  overflow: visible !important;
+}
+
+.code-scroll div.sourceCode,
+.code-scroll pre.sourceCode,
 .code-scroll pre {
-  max-height: 320px;
-  overflow-y: auto;
-  overflow-x: auto;
-  border-radius: 18px;
+  max-height: 260px !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+}
+
+.code-scroll div.sourceCode {
+  border-radius: 18px !important;
 }
