@@ -26,5 +26,6 @@ format:
     toc: true
     toc-location: right
     page-layout: full
+    title-block-banner: false
     code-fold: true
     code-tools: false
