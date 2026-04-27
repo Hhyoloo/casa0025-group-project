@@ -769,7 +769,8 @@ main.content {
   }
 
   #quarto-margin-sidebar {
-    grid-column: body-end-outset / page-end-inset !important;
-    width: 240px !important;
-  }
+  grid-column: body-end-outset / page-end-inset !important;
+  width: 240px !important;
+  right: 80px !important;
+}
 }
