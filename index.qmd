@@ -49,9 +49,9 @@ Our platform is designed for city planners, local councils, and community groups
 
 ## Data
 
-The project combines environmental, demographic and accessibility datasets. Land Surface Temperature represents surface heat burden; NDVI represents vegetation-related cooling potential; NDBI represents built-surface intensity; population density is used as an exposure component; heat exposure is derived by combining 2021 surface temperature and population distribution; cool-space accessibility represents access to cooling resources; and LSOA boundaries provide a reporting geography for comparison and querying.
+The project integrates environmental, demographic and accessibility datasets to support neighbourhood-scale cooling assessment across London. Land Surface Temperature represents surface heat burden; NDVI captures vegetation-related cooling potential; NDBI indicates built-surface intensity; heat exposure combines surface temperature and 2021 Census population count at LSOA level; cool-space accessibility reflects walking access to indoor cooling locations; and LSOA boundaries provide a consistent reporting geography for comparison and querying.
 
-Raster layers are harmonised before index construction and then aggregated to LSOA level. This allows pixel-based environmental information to be converted into a neighbourhood-scale reporting unit that is easier to interpret in a planning context.
+Raster layers are harmonised before index construction and aggregated to LSOA level, allowing pixel-based environmental information to be interpreted at neighbourhood scale for planning and spatial comparison.
 
 | Indicator | Dataset | Description | Resolution | Source |
 |---|---|---|---|---|
@@ -59,9 +59,8 @@ Raster layers are harmonised before index construction and then aggregated to LS
 | **NDVI** | Sentinel-2 MSI Level-2A | Vegetation cooling potential | 10 m | [GEE Catalog](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED) |
 | **NDBI** | Sentinel-2 MSI Level-2A derived NDBI | Built-surface intensity | 10 m | [GEE Catalog](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED) |
 | **Cooling Condition Score** | Derived layer | Composite index combining standardised LST, NDVI and NDBI | 30 m / LSOA summary | Derived layer |
-| **Population density** | Population density layer | Input variable used to derive exposure context | LSOA / raster | [ONS](https://geoportal.statistics.gov.uk/) / [WorldPop](https://hub.worldpop.org/) |
-| **Heat exposure** | Derived layer | Combined 2021 LST and population density used in Module 3 | LSOA | Derived layer |
-| **Cool spaces / green-space accessibility** | Cool spaces + catchment buffer | Access to cooling resources | Vector | [London Datastore](https://data.london.gov.uk/) / [OSM](https://www.openstreetmap.org/) |
+| **Heat exposure** | Derived layer | Combined 2021 surface temperature and census population count used in Module 3 | LSOA | Derived layer |
+| **Cool spaces accessibility** | Cool spaces + catchment buffer | Indoor cool-space locations and derived walking accessibility layer | Vector | [London Datastore](https://www.london.gov.uk/programmes-strategies/environment-and-climate-change/climate-change/climate-adaptation/cool-spaces) |
 | **LSOA boundary** | LSOA 2021 boundary | Reporting unit for zonal statistics and mapping | Vector | [ONS](https://geoportal.statistics.gov.uk/) |
 
 

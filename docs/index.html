@@ -311,8 +311,8 @@ window.Quarto = {
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>The project combines environmental, demographic and accessibility datasets. Land Surface Temperature represents surface heat burden; NDVI represents vegetation-related cooling potential; NDBI represents built-surface intensity; population density is used as an exposure component; heat exposure is derived by combining 2021 surface temperature and population distribution; cool-space accessibility represents access to cooling resources; and LSOA boundaries provide a reporting geography for comparison and querying.</p>
-<p>Raster layers are harmonised before index construction and then aggregated to LSOA level. This allows pixel-based environmental information to be converted into a neighbourhood-scale reporting unit that is easier to interpret in a planning context.</p>
+<p>The project integrates environmental, demographic and accessibility datasets to support neighbourhood-scale cooling assessment across London. Land Surface Temperature represents surface heat burden; NDVI captures vegetation-related cooling potential; NDBI indicates built-surface intensity; heat exposure combines surface temperature and 2021 Census population count at LSOA level; cool-space accessibility reflects walking access to indoor cooling locations; and LSOA boundaries provide a consistent reporting geography for comparison and querying.</p>
+<p>Raster layers are harmonised before index construction and aggregated to LSOA level, allowing pixel-based environmental information to be interpreted at neighbourhood scale for planning and spatial comparison.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -353,27 +353,20 @@ window.Quarto = {
 <td>Derived layer</td>
 </tr>
 <tr class="odd">
-<td><strong>Population density</strong></td>
-<td>Population density layer</td>
-<td>Input variable used to derive exposure context</td>
-<td>LSOA / raster</td>
-<td><a href="https://geoportal.statistics.gov.uk/">ONS</a> / <a href="https://hub.worldpop.org/">WorldPop</a></td>
-</tr>
-<tr class="even">
 <td><strong>Heat exposure</strong></td>
 <td>Derived layer</td>
-<td>Combined 2021 LST and population density used in Module 3</td>
+<td>Combined 2021 surface temperature and census population count used in Module 3</td>
 <td>LSOA</td>
 <td>Derived layer</td>
 </tr>
-<tr class="odd">
-<td><strong>Cool spaces / green-space accessibility</strong></td>
-<td>Cool spaces + catchment buffer</td>
-<td>Access to cooling resources</td>
-<td>Vector</td>
-<td><a href="https://data.london.gov.uk/">London Datastore</a> / <a href="https://www.openstreetmap.org/">OSM</a></td>
-</tr>
 <tr class="even">
+<td><strong>Cool spaces accessibility</strong></td>
+<td>Cool spaces + catchment buffer</td>
+<td>Indoor cool-space locations and derived walking accessibility layer</td>
+<td>Vector</td>
+<td><a href="https://www.london.gov.uk/programmes-strategies/environment-and-climate-change/climate-change/climate-adaptation/cool-spaces">London Datastore</a></td>
+</tr>
+<tr class="odd">
 <td><strong>LSOA boundary</strong></td>
 <td>LSOA 2021 boundary</td>
 <td>Reporting unit for zonal statistics and mapping</td>
