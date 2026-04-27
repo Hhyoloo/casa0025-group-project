@@ -206,11 +206,12 @@ window.Quarto = {
   <li><a href="#the-application" id="toc-the-application" class="nav-link" data-scroll-target="#the-application">The Application</a></li>
   <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How it Works</a>
   <ul class="collapse">
-  <li><a href="#earth-engine-preprocessing" id="toc-earth-engine-preprocessing" class="nav-link" data-scroll-target="#earth-engine-preprocessing">1. Earth Engine preprocessing</a></li>
-  <li><a href="#standardisation-and-score-construction" id="toc-standardisation-and-score-construction" class="nav-link" data-scroll-target="#standardisation-and-score-construction">2. Standardisation and score construction</a></li>
-  <li><a href="#lsoa-aggregation" id="toc-lsoa-aggregation" class="nav-link" data-scroll-target="#lsoa-aggregation">3. LSOA aggregation</a></li>
-  <li><a href="#web-mapping" id="toc-web-mapping" class="nav-link" data-scroll-target="#web-mapping">4. Web mapping</a></li>
-  <li><a href="#reading-the-output" id="toc-reading-the-output" class="nav-link" data-scroll-target="#reading-the-output">5. Reading the output</a></li>
+  <li><a href="#earth-engine-assets" id="toc-earth-engine-assets" class="nav-link" data-scroll-target="#earth-engine-assets">1. Earth Engine assets</a></li>
+  <li><a href="#heat-environment-layers" id="toc-heat-environment-layers" class="nav-link" data-scroll-target="#heat-environment-layers">2. Heat environment layers</a></li>
+  <li><a href="#cooling-condition-score-layers" id="toc-cooling-condition-score-layers" class="nav-link" data-scroll-target="#cooling-condition-score-layers">3. Cooling Condition Score layers</a></li>
+  <li><a href="#heat-exposure-and-cool-space-access" id="toc-heat-exposure-and-cool-space-access" class="nav-link" data-scroll-target="#heat-exposure-and-cool-space-access">4. Heat exposure and cool-space access</a></li>
+  <li><a href="#application-structure" id="toc-application-structure" class="nav-link" data-scroll-target="#application-structure">5. Application structure</a></li>
+  <li><a href="#reading-the-output" id="toc-reading-the-output" class="nav-link" data-scroll-target="#reading-the-output">6. Reading the output</a></li>
   </ul></li>
   <li><a href="#insights-and-objectives" id="toc-insights-and-objectives" class="nav-link" data-scroll-target="#insights-and-objectives">Insights and Objectives</a></li>
   <li><a href="#limitations-and-future-development" id="toc-limitations-and-future-development" class="nav-link" data-scroll-target="#limitations-and-future-development">Limitations and future development</a></li>
@@ -310,7 +311,7 @@ window.Quarto = {
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>The project combines environmental, demographic and accessibility datasets. Land Surface Temperature represents surface heat burden; NDVI represents vegetation-related cooling potential; NDBI represents built-surface intensity; population density represents exposure; cool-space accessibility represents access to cooling resources; and LSOA boundaries provide a reporting geography for comparison and querying.</p>
+<p>The project combines environmental, demographic and accessibility datasets. Land Surface Temperature represents surface heat burden; NDVI represents vegetation-related cooling potential; NDBI represents built-surface intensity; population density is used as an exposure component; heat exposure is derived by combining 2021 surface temperature and population distribution; cool-space accessibility represents access to cooling resources; and LSOA boundaries provide a reporting geography for comparison and querying.</p>
 <p>Raster layers are harmonised before index construction and then aggregated to LSOA level. This allows pixel-based environmental information to be converted into a neighbourhood-scale reporting unit that is easier to interpret in a planning context.</p>
 <table class="caption-top table">
 <thead>
@@ -354,18 +355,25 @@ window.Quarto = {
 <tr class="odd">
 <td><strong>Population density</strong></td>
 <td>Population density layer</td>
-<td>Exposure context for planning interpretation</td>
+<td>Input variable used to derive exposure context</td>
 <td>LSOA / raster</td>
 <td><a href="https://geoportal.statistics.gov.uk/">ONS</a> / <a href="https://hub.worldpop.org/">WorldPop</a></td>
 </tr>
 <tr class="even">
+<td><strong>Heat exposure</strong></td>
+<td>Derived layer</td>
+<td>Combined 2021 LST and population density used in Module 3</td>
+<td>LSOA</td>
+<td>Derived layer</td>
+</tr>
+<tr class="odd">
 <td><strong>Cool spaces / green-space accessibility</strong></td>
 <td>Cool spaces + catchment buffer</td>
 <td>Access to cooling resources</td>
 <td>Vector</td>
 <td><a href="https://data.london.gov.uk/">London Datastore</a> / <a href="https://www.openstreetmap.org/">OSM</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>LSOA boundary</strong></td>
 <td>LSOA 2021 boundary</td>
 <td>Reporting unit for zonal statistics and mapping</td>
@@ -385,7 +393,7 @@ window.Quarto = {
 CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 \]</span></p>
 <p>Equal weighting is applied because no validated local evidence currently supports assigning differentiated weights across the three indicators. This follows the equal weighting approach commonly used in environmental composite indices when transparency and comparability are prioritised over statistical weighting (OECD, 2008).</p>
-<p>Population density and cool-space accessibility are not included directly in the score itself; they are introduced afterwards as interpretation layers to identify where poor environmental cooling conditions may affect more residents or coincide with weaker access to cooling resources. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.</p>
+<p>Population density and cool-space accessibility are not included directly in the score itself. They are introduced afterwards as interpretation layers: population density contributes to a separate heat exposure layer derived together with 2021 LST, while cool-space locations are used to assess local accessibility through 500 m catchment buffers. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.</p>
 <div class="method-svg-wrap">
 <svg viewbox="0 0 860 430" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -439,21 +447,21 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
   <path d="M418 360 L468 360" class="flow-line arrow"></path>
 
   <rect class="svg-node node-exposure" x="488" y="306" width="150" height="44" rx="13"></rect>
-  <text x="563" y="327" text-anchor="middle" class="node-title small">Population density</text>
-  <text x="563" y="343" text-anchor="middle" class="node-sub small">exposure context</text>
+  <text x="563" y="327" text-anchor="middle" class="node-title small">Heat exposure</text>
+  <text x="563" y="343" text-anchor="middle" class="node-sub small">LST + population</text>
 
   <rect class="svg-node node-access" x="488" y="370" width="150" height="44" rx="13"></rect>
   <text x="563" y="391" text-anchor="middle" class="node-title small">Cool-space access</text>
-  <text x="563" y="407" text-anchor="middle" class="node-sub small">accessibility context</text>
+  <text x="563" y="407" text-anchor="middle" class="node-sub small">500 m catchment</text>
 
   <path d="M638 360 L688 360" class="flow-line arrow"></path>
 
   <rect class="svg-node node-output" x="708" y="326" width="112" height="68" rx="16"></rect>
-  <text x="764" y="354" text-anchor="middle" class="node-title">Priority</text>
-  <text x="764" y="376" text-anchor="middle" class="node-title">Areas</text>
+  <text x="764" y="354" text-anchor="middle" class="node-title">Spatial</text>
+  <text x="764" y="376" text-anchor="middle" class="node-title">Interpretation</text>
 </svg>
 </div>
-<p>The final output should be read as a relative screening layer rather than a direct thermal-comfort measurement. It supports comparison across neighbourhoods and highlights where environmental heat burden may overlap with higher population exposure or weaker access to cooling resources, providing a practical basis for identifying candidate areas for further local investigation.</p>
+<p>The final output should be read as a relative screening layer rather than a direct thermal-comfort measurement. CCS supports comparison across neighbourhoods, while the additional exposure and accessibility layers help identify where poorer cooling conditions may coincide with higher resident exposure or weaker access to cooling resources.</p>
 </section>
 <section id="interface" class="level2">
 <h2 class="anchored" data-anchor-id="interface">Interface</h2>
@@ -469,87 +477,124 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 </section>
 <section id="how-it-works" class="level2">
 <h2 class="anchored" data-anchor-id="how-it-works">How it Works</h2>
-<p>The application is built as a short Earth Engine workflow rather than a black-box model. The main steps are preparing the summer satellite layers, converting the indicators to a common scale, calculating the Cooling Condition Score, and exporting LSOA-level results for web mapping.</p>
-<section id="earth-engine-preprocessing" class="level3">
-<h3 class="anchored" data-anchor-id="earth-engine-preprocessing">1. Earth Engine preprocessing</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> s2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'COPERNICUS/S2_SR_HARMONIZED'</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterBounds</span>(london)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2025-06-01'</span><span class="op">,</span> <span class="st">'2025-08-31'</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">lt</span>(<span class="st">'CLOUDY_PIXEL_PERCENTAGE'</span><span class="op">,</span> <span class="dv">20</span>))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">median</span>()<span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> s2<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B8'</span><span class="op">,</span> <span class="st">'B4'</span>])</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'NDVI'</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">clip</span>(london)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The final application is organised as a Google Earth Engine app with three linked modules. Module 1 compares the heat environment using LST, NDVI and NDBI. Module 2 displays the Cooling Condition Score and its change between 2022 and 2025. Module 3 combines the derived heat exposure layer with indoor cool-space sites and 500 m catchment buffers.</p>
+<p>The code below shows simplified extracts from the final Earth Engine script. The full source code is provided in the GitHub repository.</p>
+<section id="earth-engine-assets" class="level3">
+<h3 class="anchored" data-anchor-id="earth-engine-assets">1. Earth Engine assets</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> london <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'projects/still-cipher-492419-m3/assets/London_GLA_Boundary'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> lsoa <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'projects/still-cipher-492419-m3/assets/LSOA_2011_London_gen_MHW'</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ccs <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">'projects/casa0025-488411/assets/cri_change_lsoa'</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> coolspace <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">'projects/still-cipher-492419-m3/assets/CoolSpace_2025'</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> lsoaExposure <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">'projects/still-cipher-492419-m3/assets/London_HeatExposure_2021'</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="standardisation-and-score-construction" class="level3">
-<h3 class="anchored" data-anchor-id="standardisation-and-score-construction">2. Standardisation and score construction</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">unitScale</span>(image<span class="op">,</span> bandName<span class="op">,</span> region) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> stats <span class="op">=</span> image<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">minMax</span>()<span class="op">,</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">geometry</span><span class="op">:</span> region<span class="op">,</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maxPixels</span><span class="op">:</span> <span class="fl">1e13</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> min <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(stats<span class="op">.</span><span class="fu">get</span>(bandName <span class="op">+</span> <span class="st">'_min'</span>))<span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> max <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(stats<span class="op">.</span><span class="fu">get</span>(bandName <span class="op">+</span> <span class="st">'_max'</span>))<span class="op">;</span></span>
+<section id="heat-environment-layers" class="level3">
+<h3 class="anchored" data-anchor-id="heat-environment-layers">2. Heat environment layers</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getLST</span>(year) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> l8 <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C02/T1_L2'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterBounds</span>(london<span class="op">.</span><span class="fu">geometry</span>())</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterDate</span>(year <span class="op">+</span> <span class="st">'-05-01'</span><span class="op">,</span> year <span class="op">+</span> <span class="st">'-08-31'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">lt</span>(<span class="st">'CLOUD_COVER'</span><span class="op">,</span> <span class="dv">15</span>))<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> l9 <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC09/C02/T1_L2'</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterBounds</span>(london<span class="op">.</span><span class="fu">geometry</span>())</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterDate</span>(year <span class="op">+</span> <span class="st">'-05-01'</span><span class="op">,</span> year <span class="op">+</span> <span class="st">'-08-31'</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">lt</span>(<span class="st">'CLOUD_COVER'</span><span class="op">,</span> <span class="dv">15</span>))<span class="op">;</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> image<span class="op">.</span><span class="fu">subtract</span>(min)<span class="op">.</span><span class="fu">divide</span>(max<span class="op">.</span><span class="fu">subtract</span>(min))<span class="op">;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> lstNorm <span class="op">=</span> <span class="fu">unitScale</span>(lst<span class="op">,</span> <span class="st">'LST'</span><span class="op">,</span> london)<span class="op">;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndviNorm <span class="op">=</span> <span class="fu">unitScale</span>(ndvi<span class="op">,</span> <span class="st">'NDVI'</span><span class="op">,</span> london)<span class="op">;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndbiNorm <span class="op">=</span> <span class="fu">unitScale</span>(ndbi<span class="op">,</span> <span class="st">'NDBI'</span><span class="op">,</span> london)<span class="op">;</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Higher NDVI means stronger cooling potential,</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">// so it is reversed for a risk-oriented cooling condition score.</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndviPressure <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="dv">1</span>)<span class="op">.</span><span class="fu">subtract</span>(ndviNorm)<span class="op">;</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> coolingScore <span class="op">=</span> lstNorm</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndviPressure)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">add</span>(ndbiNorm)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">divide</span>(<span class="dv">3</span>)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'Cooling_Condition_Score'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> l8<span class="op">.</span><span class="fu">merge</span>(l9)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">median</span>()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">clip</span>(london)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">select</span>(<span class="st">'ST_B10'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">multiply</span>(<span class="fl">0.00341802</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">add</span>(<span class="fl">149.0</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">subtract</span>(<span class="fl">273.15</span>)<span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getVegBuilt</span>(year) {</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> s2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'COPERNICUS/S2_SR_HARMONIZED'</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterBounds</span>(london<span class="op">.</span><span class="fu">geometry</span>())</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterDate</span>(year <span class="op">+</span> <span class="st">'-05-01'</span><span class="op">,</span> year <span class="op">+</span> <span class="st">'-08-31'</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">lt</span>(<span class="st">'CLOUDY_PIXEL_PERCENTAGE'</span><span class="op">,</span> <span class="dv">20</span>))</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">median</span>()</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">clip</span>(london)<span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> s2<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B8'</span><span class="op">,</span> <span class="st">'B4'</span>])<span class="op">.</span><span class="fu">rename</span>(<span class="st">'NDVI'</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">addBands</span>(s2<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B11'</span><span class="op">,</span> <span class="st">'B8'</span>])<span class="op">.</span><span class="fu">rename</span>(<span class="st">'NDBI'</span>))<span class="op">;</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="lsoa-aggregation" class="level3">
-<h3 class="anchored" data-anchor-id="lsoa-aggregation">3. LSOA aggregation</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> lsoaScore <span class="op">=</span> coolingScore<span class="op">.</span><span class="fu">reduceRegions</span>({</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">collection</span><span class="op">:</span> lsoa<span class="op">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">mean</span>()<span class="op">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Export<span class="op">.</span><span class="at">table</span><span class="op">.</span><span class="fu">toDrive</span>({</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">collection</span><span class="op">:</span> lsoaScore<span class="op">,</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">description</span><span class="op">:</span> <span class="st">'cooling_condition_score_lsoa'</span><span class="op">,</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">fileFormat</span><span class="op">:</span> <span class="st">'GeoJSON'</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="cooling-condition-score-layers" class="level3">
+<h3 class="anchored" data-anchor-id="cooling-condition-score-layers">3. Cooling Condition Score layers</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ccsLayerConfig <span class="op">=</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'CCS Change 2022-2025'</span><span class="op">:</span> {<span class="dt">field</span><span class="op">:</span> <span class="st">'cri_change'</span><span class="op">,</span> <span class="dt">type</span><span class="op">:</span> <span class="st">'change'</span>}<span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'CCS 2025'</span><span class="op">:</span> {<span class="dt">field</span><span class="op">:</span> <span class="st">'cri25_mean'</span><span class="op">,</span> <span class="dt">type</span><span class="op">:</span> <span class="st">'score'</span>}<span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'CCS 2024'</span><span class="op">:</span> {<span class="dt">field</span><span class="op">:</span> <span class="st">'cri24_mean'</span><span class="op">,</span> <span class="dt">type</span><span class="op">:</span> <span class="st">'score'</span>}<span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'CCS 2022'</span><span class="op">:</span> {<span class="dt">field</span><span class="op">:</span> <span class="st">'cri22_mean'</span><span class="op">,</span> <span class="dt">type</span><span class="op">:</span> <span class="st">'score'</span>}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getCCSStyled</span>(layerName) {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> cfg <span class="op">=</span> ccsLayerConfig[layerName]<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (cfg<span class="op">.</span><span class="at">type</span> <span class="op">===</span> <span class="st">'change'</span>) {</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ccs<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(f) {</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="fu">classifyChange</span>(f<span class="op">,</span> cfg<span class="op">.</span><span class="at">field</span>)<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ccs<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(f) {</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">classifyScore</span>(f<span class="op">,</span> cfg<span class="op">.</span><span class="at">field</span>)<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="web-mapping" class="level3">
-<h3 class="anchored" data-anchor-id="web-mapping">4. Web mapping</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fetch</span>(<span class="st">'data/cooling_condition_score_lsoa.geojson'</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">then</span>(response <span class="kw">=&gt;</span> response<span class="op">.</span><span class="fu">json</span>())</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">then</span>(data <span class="kw">=&gt;</span> {</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    L<span class="op">.</span><span class="fu">geoJSON</span>(data<span class="op">,</span> {</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> feature <span class="kw">=&gt;</span> ({</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">weight</span><span class="op">:</span> <span class="fl">0.6</span><span class="op">,</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">color</span><span class="op">:</span> <span class="st">'#ffffff'</span><span class="op">,</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.75</span><span class="op">,</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fillColor</span><span class="op">:</span> <span class="fu">getScoreColour</span>(feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">mean</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">onEachFeature</span><span class="op">:</span> (feature<span class="op">,</span> layer) <span class="kw">=&gt;</span> {</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        layer<span class="op">.</span><span class="fu">bindPopup</span>(</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>          <span class="vs">`LSOA: </span><span class="sc">${</span>feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">&lt;br&gt;</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="vs">           Cooling Condition Score: </span><span class="sc">${</span>feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">mean</span><span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        )<span class="op">;</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    })<span class="op">.</span><span class="fu">addTo</span>(map)<span class="op">;</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="heat-exposure-and-cool-space-access" class="level3">
+<h3 class="anchored" data-anchor-id="heat-exposure-and-cool-space-access">4. Heat exposure and cool-space access</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> coolspacePoints <span class="op">=</span> coolspace<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(f) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> f<span class="op">.</span><span class="fu">setGeometry</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    ee<span class="op">.</span><span class="at">Geometry</span><span class="op">.</span><span class="fu">Point</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      [ee<span class="op">.</span><span class="fu">Number</span>(f<span class="op">.</span><span class="fu">get</span>(<span class="st">'x'</span>))<span class="op">,</span> ee<span class="op">.</span><span class="fu">Number</span>(f<span class="op">.</span><span class="fu">get</span>(<span class="st">'y'</span>))]<span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">'EPSG:27700'</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> coolspaceBuffer <span class="op">=</span> coolspacePoints<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(f) {</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> f<span class="op">.</span><span class="fu">buffer</span>(<span class="dv">500</span>)<span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> img <span class="op">=</span> lsoaExposure<span class="op">.</span><span class="fu">reduceToImage</span>({</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">properties</span><span class="op">:</span> [<span class="st">'exposure'</span>]<span class="op">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">first</span>()</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="application-structure" class="level3">
+<h3 class="anchored" data-anchor-id="application-structure">5. Application structure</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> moduleNames <span class="op">=</span> [</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Module 1: Heat Environment'</span><span class="op">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Module 2: Cooling Condition Score'</span><span class="op">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Module 3: Heat Exposure &amp; Cool Spaces'</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">switchModule</span>(index) {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  leftContainer<span class="op">.</span><span class="fu">clear</span>()<span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  leftContainer<span class="op">.</span><span class="fu">add</span>(modules[index]<span class="op">.</span><span class="at">panel</span>)<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  modules[index]<span class="op">.</span><span class="fu">refresh</span>()<span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="reading-the-output" class="level3">
-<h3 class="anchored" data-anchor-id="reading-the-output">5. Reading the output</h3>
-<p>Higher Cooling Condition Score values indicate relatively warmer or less favourable cooling conditions. Lower values indicate relatively cooler or more favourable conditions. Population density and cool-space accessibility should be read alongside the score to identify where poor cooling conditions may affect more residents or coincide with weaker access to cooling resources.</p>
+<h3 class="anchored" data-anchor-id="reading-the-output">6. Reading the output</h3>
+<p>Module 1 allows users to compare LST, NDVI and NDBI across 2022, 2024 and 2025. Module 2 shows the Cooling Condition Score and highlights where cooling conditions have improved or declined between 2022 and 2025. Module 3 uses the derived heat exposure layer together with indoor cool-space locations and 500 m catchments to show where higher exposure may overlap with weaker access to cooling resources.</p>
 </section>
 </section>
 <section id="insights-and-objectives" class="level2">

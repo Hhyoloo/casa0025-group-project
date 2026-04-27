@@ -49,7 +49,7 @@ Our platform is designed for city planners, local councils, and community groups
 
 ## Data
 
-The project combines environmental, demographic and accessibility datasets. Land Surface Temperature represents surface heat burden; NDVI represents vegetation-related cooling potential; NDBI represents built-surface intensity; population density represents exposure; cool-space accessibility represents access to cooling resources; and LSOA boundaries provide a reporting geography for comparison and querying.
+The project combines environmental, demographic and accessibility datasets. Land Surface Temperature represents surface heat burden; NDVI represents vegetation-related cooling potential; NDBI represents built-surface intensity; population density is used as an exposure component; heat exposure is derived by combining 2021 surface temperature and population distribution; cool-space accessibility represents access to cooling resources; and LSOA boundaries provide a reporting geography for comparison and querying.
 
 Raster layers are harmonised before index construction and then aggregated to LSOA level. This allows pixel-based environmental information to be converted into a neighbourhood-scale reporting unit that is easier to interpret in a planning context.
 
@@ -59,9 +59,11 @@ Raster layers are harmonised before index construction and then aggregated to LS
 | **NDVI** | Sentinel-2 MSI Level-2A | Vegetation cooling potential | 10 m | [GEE Catalog](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED) |
 | **NDBI** | Sentinel-2 MSI Level-2A derived NDBI | Built-surface intensity | 10 m | [GEE Catalog](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED) |
 | **Cooling Condition Score** | Derived layer | Composite index combining standardised LST, NDVI and NDBI | 30 m / LSOA summary | Derived layer |
-| **Population density** | Population density layer | Exposure context for planning interpretation | LSOA / raster | [ONS](https://geoportal.statistics.gov.uk/) / [WorldPop](https://hub.worldpop.org/) |
+| **Population density** | Population density layer | Input variable used to derive exposure context | LSOA / raster | [ONS](https://geoportal.statistics.gov.uk/) / [WorldPop](https://hub.worldpop.org/) |
+| **Heat exposure** | Derived layer | Combined 2021 LST and population density used in Module 3 | LSOA | Derived layer |
 | **Cool spaces / green-space accessibility** | Cool spaces + catchment buffer | Access to cooling resources | Vector | [London Datastore](https://data.london.gov.uk/) / [OSM](https://www.openstreetmap.org/) |
 | **LSOA boundary** | LSOA 2021 boundary | Reporting unit for zonal statistics and mapping | Vector | [ONS](https://geoportal.statistics.gov.uk/) |
+
 
 ## Methodology
 
@@ -79,7 +81,7 @@ $$
 
 Equal weighting is applied because no validated local evidence currently supports assigning differentiated weights across the three indicators. This follows the equal weighting approach commonly used in environmental composite indices when transparency and comparability are prioritised over statistical weighting (OECD, 2008).
 
-Population density and cool-space accessibility are not included directly in the score itself; they are introduced afterwards as interpretation layers to identify where poor environmental cooling conditions may affect more residents or coincide with weaker access to cooling resources. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.
+Population density and cool-space accessibility are not included directly in the score itself. They are introduced afterwards as interpretation layers: population density contributes to a separate heat exposure layer derived together with 2021 LST, while cool-space locations are used to assess local accessibility through 500 m catchment buffers. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.
 
 ```{=html}
 <div class="method-svg-wrap">
@@ -135,23 +137,23 @@ Population density and cool-space accessibility are not included directly in the
   <path d="M418 360 L468 360" class="flow-line arrow"/>
 
   <rect class="svg-node node-exposure" x="488" y="306" width="150" height="44" rx="13"/>
-  <text x="563" y="327" text-anchor="middle" class="node-title small">Population density</text>
-  <text x="563" y="343" text-anchor="middle" class="node-sub small">exposure context</text>
+  <text x="563" y="327" text-anchor="middle" class="node-title small">Heat exposure</text>
+  <text x="563" y="343" text-anchor="middle" class="node-sub small">LST + population</text>
 
   <rect class="svg-node node-access" x="488" y="370" width="150" height="44" rx="13"/>
   <text x="563" y="391" text-anchor="middle" class="node-title small">Cool-space access</text>
-  <text x="563" y="407" text-anchor="middle" class="node-sub small">accessibility context</text>
+  <text x="563" y="407" text-anchor="middle" class="node-sub small">500 m catchment</text>
 
   <path d="M638 360 L688 360" class="flow-line arrow"/>
 
   <rect class="svg-node node-output" x="708" y="326" width="112" height="68" rx="16"/>
-  <text x="764" y="354" text-anchor="middle" class="node-title">Priority</text>
-  <text x="764" y="376" text-anchor="middle" class="node-title">Areas</text>
+  <text x="764" y="354" text-anchor="middle" class="node-title">Spatial</text>
+  <text x="764" y="376" text-anchor="middle" class="node-title">Interpretation</text>
 </svg>
 </div>
 ```
 
-The final output should be read as a relative screening layer rather than a direct thermal-comfort measurement. It supports comparison across neighbourhoods and highlights where environmental heat burden may overlap with higher population exposure or weaker access to cooling resources, providing a practical basis for identifying candidate areas for further local investigation.
+The final output should be read as a relative screening layer rather than a direct thermal-comfort measurement. CCS supports comparison across neighbourhoods, while the additional exposure and accessibility layers help identify where poorer cooling conditions may coincide with higher resident exposure or weaker access to cooling resources.
 
 ## Interface
 
@@ -171,96 +173,136 @@ The embedded application below is the interactive front end of the project. It l
 
 ## How it Works
 
-The application is built as a short Earth Engine workflow rather than a black-box model. The main steps are preparing the summer satellite layers, converting the indicators to a common scale, calculating the Cooling Condition Score, and exporting LSOA-level results for web mapping.
+The final application is organised as a Google Earth Engine app with three linked modules. Module 1 compares the heat environment using LST, NDVI and NDBI. Module 2 displays the Cooling Condition Score and its change between 2022 and 2025. Module 3 combines the derived heat exposure layer with indoor cool-space sites and 500 m catchment buffers.
 
-### 1. Earth Engine preprocessing
+The code below shows simplified extracts from the final Earth Engine script. The full source code is provided in the GitHub repository.
+
+### 1. Earth Engine assets
 
 ```js
-var s2 = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
-  .filterBounds(london)
-  .filterDate('2025-06-01', '2025-08-31')
-  .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20))
-  .median();
+var london = ee.FeatureCollection(
+  'projects/still-cipher-492419-m3/assets/London_GLA_Boundary'
+);
 
-var ndvi = s2.normalizedDifference(['B8', 'B4'])
-  .rename('NDVI')
-  .clip(london);
+var lsoa = ee.FeatureCollection(
+  'projects/still-cipher-492419-m3/assets/LSOA_2011_London_gen_MHW'
+);
+
+var ccs = ee.FeatureCollection(
+  'projects/casa0025-488411/assets/cri_change_lsoa'
+);
+
+var coolspace = ee.FeatureCollection(
+  'projects/still-cipher-492419-m3/assets/CoolSpace_2025'
+);
+
+var lsoaExposure = ee.FeatureCollection(
+  'projects/still-cipher-492419-m3/assets/London_HeatExposure_2021'
+);
 ```
 
-### 2. Standardisation and score construction
+### 2. Heat environment layers
 
 ```js
-function unitScale(image, bandName, region) {
-  var stats = image.reduceRegion({
-    reducer: ee.Reducer.minMax(),
-    geometry: region,
-    scale: 30,
-    maxPixels: 1e13
-  });
+function getLST(year) {
+  var l8 = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')
+    .filterBounds(london.geometry())
+    .filterDate(year + '-05-01', year + '-08-31')
+    .filter(ee.Filter.lt('CLOUD_COVER', 15));
 
-  var min = ee.Number(stats.get(bandName + '_min'));
-  var max = ee.Number(stats.get(bandName + '_max'));
+  var l9 = ee.ImageCollection('LANDSAT/LC09/C02/T1_L2')
+    .filterBounds(london.geometry())
+    .filterDate(year + '-05-01', year + '-08-31')
+    .filter(ee.Filter.lt('CLOUD_COVER', 15));
 
-  return image.subtract(min).divide(max.subtract(min));
+  return l8.merge(l9)
+    .median()
+    .clip(london)
+    .select('ST_B10')
+    .multiply(0.00341802)
+    .add(149.0)
+    .subtract(273.15);
 }
 
-var lstNorm = unitScale(lst, 'LST', london);
-var ndviNorm = unitScale(ndvi, 'NDVI', london);
-var ndbiNorm = unitScale(ndbi, 'NDBI', london);
+function getVegBuilt(year) {
+  var s2 = ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
+    .filterBounds(london.geometry())
+    .filterDate(year + '-05-01', year + '-08-31')
+    .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20))
+    .median()
+    .clip(london);
 
-// Higher NDVI means stronger cooling potential,
-// so it is reversed for a risk-oriented cooling condition score.
-var ndviPressure = ee.Image(1).subtract(ndviNorm);
-
-var coolingScore = lstNorm
-  .add(ndviPressure)
-  .add(ndbiNorm)
-  .divide(3)
-  .rename('Cooling_Condition_Score');
+  return s2.normalizedDifference(['B8', 'B4']).rename('NDVI')
+    .addBands(s2.normalizedDifference(['B11', 'B8']).rename('NDBI'));
+}
 ```
 
-### 3. LSOA aggregation
+### 3. Cooling Condition Score layers
 
 ```js
-var lsoaScore = coolingScore.reduceRegions({
-  collection: lsoa,
-  reducer: ee.Reducer.mean(),
-  scale: 30
-});
+var ccsLayerConfig = {
+  'CCS Change 2022-2025': {field: 'cri_change', type: 'change'},
+  'CCS 2025': {field: 'cri25_mean', type: 'score'},
+  'CCS 2024': {field: 'cri24_mean', type: 'score'},
+  'CCS 2022': {field: 'cri22_mean', type: 'score'}
+};
 
-Export.table.toDrive({
-  collection: lsoaScore,
-  description: 'cooling_condition_score_lsoa',
-  fileFormat: 'GeoJSON'
-});
-```
+function getCCSStyled(layerName) {
+  var cfg = ccsLayerConfig[layerName];
 
-### 4. Web mapping
+  if (cfg.type === 'change') {
+    return ccs.map(function(f) {
+      return classifyChange(f, cfg.field);
+    });
+  }
 
-```js
-fetch('data/cooling_condition_score_lsoa.geojson')
-  .then(response => response.json())
-  .then(data => {
-    L.geoJSON(data, {
-      style: feature => ({
-        weight: 0.6,
-        color: '#ffffff',
-        fillOpacity: 0.75,
-        fillColor: getScoreColour(feature.properties.mean)
-      }),
-      onEachFeature: (feature, layer) => {
-        layer.bindPopup(
-          `LSOA: ${feature.properties.name}<br>
-           Cooling Condition Score: ${feature.properties.mean}`
-        );
-      }
-    }).addTo(map);
+  return ccs.map(function(f) {
+    return classifyScore(f, cfg.field);
   });
+}
 ```
 
-### 5. Reading the output
+### 4. Heat exposure and cool-space access
 
-Higher Cooling Condition Score values indicate relatively warmer or less favourable cooling conditions. Lower values indicate relatively cooler or more favourable conditions. Population density and cool-space accessibility should be read alongside the score to identify where poor cooling conditions may affect more residents or coincide with weaker access to cooling resources.
+```js
+var coolspacePoints = coolspace.map(function(f) {
+  return f.setGeometry(
+    ee.Geometry.Point(
+      [ee.Number(f.get('x')), ee.Number(f.get('y'))],
+      'EPSG:27700'
+    )
+  );
+});
+
+var coolspaceBuffer = coolspacePoints.map(function(f) {
+  return f.buffer(500);
+});
+
+var img = lsoaExposure.reduceToImage({
+  properties: ['exposure'],
+  reducer: ee.Reducer.first()
+});
+```
+
+### 5. Application structure
+
+```js
+var moduleNames = [
+  'Module 1: Heat Environment',
+  'Module 2: Cooling Condition Score',
+  'Module 3: Heat Exposure & Cool Spaces'
+];
+
+function switchModule(index) {
+  leftContainer.clear();
+  leftContainer.add(modules[index].panel);
+  modules[index].refresh();
+}
+```
+
+### 6. Reading the output
+
+Module 1 allows users to compare LST, NDVI and NDBI across 2022, 2024 and 2025. Module 2 shows the Cooling Condition Score and highlights where cooling conditions have improved or declined between 2022 and 2025. Module 3 uses the derived heat exposure layer together with indoor cool-space locations and 500 m catchments to show where higher exposure may overlap with weaker access to cooling resources.
 
 ## Insights and Objectives
 
