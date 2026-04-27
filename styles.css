@@ -790,3 +790,9 @@ main.content {
 .code-scroll div.sourceCode {
   border-radius: 18px !important;
 }
+
+/* FINAL: centre SVG node text vertically */
+.method-svg-wrap .node-title,
+.method-svg-wrap .node-sub {
+  transform: translateY(-4px);
+}
