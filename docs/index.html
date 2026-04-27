@@ -379,14 +379,14 @@ window.Quarto = {
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
 <p>The method is designed as a transparent environmental screening framework rather than a predictive heat-risk model. It follows recent urban heat vulnerability studies that prioritise interpretable composite indicators for neighbourhood comparison instead of calibrated forecasting models (Turner et al., 2025).</p>
-<p>LST, NDVI and NDBI are first normalised to a common 0–1 scale, following standard composite indicator construction procedures where variables with different units are rescaled before aggregation (OECD, 2008). In urban remote-sensing research, these three indicators are commonly used together to represent surface heat intensity, vegetation cooling effects and built-surface concentration (Ahmad et al., 2024; Rao et al., 2023).</p>
+<p>LST, NDVI and NDBI are first normalised to a common 0–1 scale, following standard composite indicator construction procedures where variables with different units are rescaled before aggregation (OECD, 2008). In urban remote-sensing research, these three indicators are commonly used together to represent surface heat intensity, vegetation cooling effects and built-surface concentration (Voogt and Oke, 2003; Ahmad et al., 2024; Rao et al., 2023).</p>
 <p>LST and NDBI are treated as pressure indicators because higher values generally indicate stronger surface heat burden and greater built-surface intensity, while NDVI is reversed because higher vegetation levels reflect stronger cooling potential, consistent with remote-sensing heat-vulnerability frameworks where vegetation acts as a mitigating factor (Turner et al., 2025).</p>
 <p>The <strong>Cooling Condition Score</strong> is calculated as:</p>
 <p><span class="math display">\[
 CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 \]</span></p>
 <p>Equal weighting is applied because no validated local evidence currently supports assigning differentiated weights across the three indicators. This follows the equal weighting approach commonly used in environmental composite indices when transparency and comparability are prioritised over statistical weighting (OECD, 2008).</p>
-<p>Heat exposure and cool-space accessibility are not included directly in the Cooling Condition Score. They are introduced afterwards as interpretation layers: heat exposure combines 2021 LST with census population count at LSOA level, while cool-space locations are used to assess local accessibility through 500 m catchment buffers. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.</p>
+<p>Heat exposure and cool-space accessibility are not included directly in the Cooling Condition Score. They are introduced afterwards as interpretation layers: heat exposure combines 2021 summer LST with census population count at LSOA level, while cool-space locations are assessed using a 500 m walking-distance buffer to compare relative local accessibility. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.</p>
 <div class="method-svg-wrap">
 <svg viewbox="0 0 860 430" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -683,15 +683,16 @@ Figure&nbsp;1: By filtering indicators and overlaying layers, we found that most
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <ul>
+<li><p>Ahmad, B., Najar, M.B. and Ahmad, S. (2024) ‘Analysis of LST, NDVI, and UHI patterns for urban climate using Landsat-9 satellite data in Delhi’, <em>Journal of Atmospheric and Solar-Terrestrial Physics</em>, 265, 106359.</p></li>
 <li><p>Greater London Authority (2021) <em>The London Plan 2021</em>. London: Greater London Authority.</p></li>
 <li><p>Greater London Authority (2023) <em>Urban Greening Factor London Plan Guidance</em>. London: Greater London Authority.</p></li>
 <li><p>Google Earth Engine Data Catalogue (n.d.) <em>Landsat 8/9 Collection 2 Level-2</em>. Available at: https://developers.google.com/earth-engine/datasets</p></li>
 <li><p>Google Earth Engine Data Catalogue (n.d.) <em>Sentinel-2 MSI Level-2A Surface Reflectance</em>. Available at: https://developers.google.com/earth-engine/datasets</p></li>
-<li><p>Ahmad, B., Najar, M.B. and Ahmad, S. (2024) ‘Analysis of LST, NDVI and urban heat island patterns using Landsat satellite data’, <em>Journal of Atmospheric and Solar-Terrestrial Physics</em>, 265, 106359.</p></li>
+<li><p>Kabisch, N., Remahne, F., Ilsemann, C. and Fricke, L. (2023) ‘The urban heat island under extreme heat conditions: a case study of Hannover, Germany’, <em>Scientific Reports</em>, 13, 23017.</p></li>
+<li><p>OECD and Joint Research Centre (2008) <em>Handbook on Constructing Composite Indicators: Methodology and User Guide</em>. Paris: OECD Publishing.</p></li>
 <li><p>Rao, P., Tassinari, P. and Torreggiani, D. (2023) ‘Exploring the land-use urban heat island nexus under climate change conditions using machine learning approach: A spatio-temporal analysis of remotely sensed data’, <em>Heliyon</em>, 9(7), e18423.</p></li>
-<li><p>Kabisch, N., Remahne, F., Ilsemann, C. and Fricke, L. (2023) ‘The urban heat island under extreme heat conditions: A case study of Hannover, Germany’, <em>Scientific Reports</em>, 13, 23017.</p></li>
 <li><p>Turner, R. et al.&nbsp;(2025) ‘Development and validation of the Global Urban Heat Vulnerability Index (GUHVI)’, <em>Urban Climate</em>, 64, 102716.</p></li>
-<li><p>OECD and Joint Research Centre (2008) <em>Handbook on Constructing Composite Indicators: Methodology and User Guide</em>. Paris: OECD Publishing</p></li>
+<li><p>Voogt, J.A. and Oke, T.R. (2003) ‘Thermal remote sensing of urban climates’, <em>Remote Sensing of Environment</em>, 86(3), pp.&nbsp;370–384.</p></li>
 </ul>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
