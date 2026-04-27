@@ -72,15 +72,17 @@ LST, NDVI and NDBI are first normalised to a common 0–1 scale, following stand
 
 LST and NDBI are treated as pressure indicators because higher values generally indicate stronger surface heat burden and greater built-surface intensity, while NDVI is reversed because higher vegetation levels reflect stronger cooling potential, consistent with remote-sensing heat-vulnerability frameworks where vegetation acts as a mitigating factor (Turner et al., 2025).
 
+Equal weighting is applied because no validated local evidence currently supports assigning differentiated weights across the three indicators. This follows the equal weighting approach commonly used in environmental composite indices when transparency and comparability are prioritised over statistical weighting (OECD, 2008).
+
 The **Cooling Condition Score** is calculated as:
 
 $$
 CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 $$
 
-Equal weighting is applied because no validated local evidence currently supports assigning differentiated weights across the three indicators. This follows the equal weighting approach commonly used in environmental composite indices when transparency and comparability are prioritised over statistical weighting (OECD, 2008).
+This design separates environmental cooling condition from social exposure and service accessibility. CCS measures the physical cooling environment, while heat exposure and cool-space access help interpret who may be affected and whether formal cooling resources are spatially aligned with need. Keeping these components separate avoids presenting the score as a complete heat-risk index and makes the analytical logic easier to audit.
 
-Heat exposure and cool-space accessibility are not included directly in the Cooling Condition Score. They are introduced afterwards as interpretation layers: heat exposure combines 2021 summer LST with census population count at LSOA level, while cool-space locations are assessed using a 500 m walking-distance buffer to compare relative local accessibility. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate relatively more favourable environmental cooling conditions.
+Heat exposure and cool-space accessibility are introduced afterwards as interpretation layers. Heat exposure combines surface heat conditions with census population count at LSOA level, while cool-space locations are assessed using a 500 m walking-distance buffer to compare relative local accessibility. Higher CCS values therefore indicate relatively poorer local cooling conditions, while lower values indicate more favourable environmental cooling conditions.
 
 
 
@@ -158,17 +160,17 @@ The final output should be read as a relative screening layer rather than a dire
 
 ## Interface
 
-The interface is organised around layer comparison. Users can switch between urban heat environment, cooling condition accessment, and heat exposure & cool-space accessibility. The design intends to illustate a progressive causal chain: "The urban heat environment in London exhibits significant spatial imbalance between 2022 and 2025. Cool condition ratings reveal structural cold-warm zones, while population heat exposure analysis indicates a spatial mismatch between highly exposed populations and indoor cool resources."
+The interface is organised as a three-module workflow that moves from environmental conditions to planning interpretation.
 
-The platform is structured around three thematic modules, navigable via a top bar. All modules share a consistent grey basemap and a floating legend panel, with layer opacity adjustable throughout.
+Users move between three linked modules: urban heat environment, cooling condition assessment, and heat exposure with cool-space accessibility. Together, the modules create a progressive analytical sequence, moving from environmental heat conditions to changing cooling capacity and finally to the spatial relationship between exposure and cooling provision.
 
-Module 1: Heat Environment displays land surface temperature (LST), vegetation cover (NDVI), and built-up intensity (NDBI) derived from Landsat 8/9 and Sentinel-2 imagery for 2022, 2024, and 2025. Users can select indicators and years via dropdown menus, adjust layer opacity, and click any LSOA to retrieve zonal statistics. 
+Module 1 presents LST, NDVI and NDBI derived from Landsat 8/9 and Sentinel-2 imagery for 2022, 2024 and 2025. Users can select indicators and years, adjust layer opacity, and click any LSOA to retrieve zonal statistics.
 
-Module 2: Cooling Condition Score visualises a composite indicator combining LST, NDVI, and NDBI into a standardised cooling score, with options to view annual snapshots or the 2022–2025 change layer. A filter control isolates areas of decline or improvement, and a pie chart summarises the class composition of visible LSOAs. Indoor cool space sites are overlaid to identidy if there are enough indoor cool spaces in those areas that are getting hot. 
+Module 2 visualises annual Cooling Condition Score layers together with the 2022–2025 change layer. A filter control allows users to isolate areas of improvement or decline, while official indoor Cool Space locations are displayed for comparison.
 
-Module 3: Heat Exposure and Cool Spaces maps population-weighted heat exposure at LSOA level, overlaid with 500-metre accessibility catchments around indoor cool space venues (approximately a 7-minute walk, the human-centered design standard for heat relief access). A pie chart quantifies the proportion of high-exposure areas covered by cool space catchments, identifying spatial gaps in provision.
+Module 3 combines LSOA-level heat exposure with 500 m walking-distance catchments around indoor Cool Spaces, helping users identify where higher exposure may coincide with weaker access to formal cooling provision.
 
-This design keeps the application accessible for non-technical users while still showing the analytical logic behind the final priority layer.
+This structure keeps the platform accessible for non-technical users while preserving the analytical logic behind the interpretation layers.
 
 ::: {#fig-interface layout-ncol=3}
 ![Cooling Condition Score](images/interface1.png)
