@@ -268,7 +268,7 @@ window.Quarto = {
 </div>
 <section id="project-summary" class="level2">
 <h2 class="anchored" data-anchor-id="project-summary">Project Summary</h2>
-<p>The project develops an application using Google Earth Engine for city planners and policymakers to evaluate urban cooling resilience across London at the LSOA level. The model calculates a Cooling Condition Score (CCS) using vegetation (NDVI), built-up (NDBI), and land surface temperature (LST) data, following the Equal Weighting Approach (EWA) established by Turner et al.&nbsp;(2025). Based on the London Policy G5 (Urban Greening) framework launched in 2021, this study tracks CCS trends between 2022 and 2025 and the distribution of official “Cool Spaces”. By comparing these layers, the platform reveals the spatial alignment between cooling resources and actual neighborhood needs, helping to identify whether interventions are accurately directed at high-vulnerability areas. This provides a data-driven basis for targeted interventions and optimized resource allocation.</p>
+<p>The project develops an application using Google Earth Engine for city planners and policymakers to evaluate urban cooling resilience across London at the LSOA level. The model calculates a Cooling Condition Score (CCS) using vegetation (NDVI), built-up (NDBI), and land surface temperature (LST) data, following the Equal Weighting Approach (EWA) (Turner et al., 2025). Based on the London Policy G5 (Urban Greening) framework launched in 2021, this study tracks CCS trends between 2022 and 2025 and the distribution of official “Cool Spaces”. By comparing these layers, the platform reveals the spatial alignment between cooling resources and actual neighborhood needs, helping to identify whether interventions are accurately directed at high-vulnerability areas. This provides a data-driven basis for targeted interventions and optimized resource allocation.</p>
 <section id="policy-context" class="level3">
 <h3 class="anchored" data-anchor-id="policy-context">Policy Context</h3>
 <p>This project is framed by <strong>The London Plan 2021</strong>, particularly its focus on managing heat risk, expanding urban greening and improving fair access to climate adaptation resources. Policy SI 4 treats overheating as a planning issue, while Policy G5 highlights urban greening as part of climate resilience. Together, these policies support the need for a spatial tool that can connect heat exposure, green infrastructure and cooling access.</p>
@@ -301,7 +301,7 @@ window.Quarto = {
 </section>
 <section id="problem-statement" class="level3">
 <h3 class="anchored" data-anchor-id="problem-statement">Problem Statement</h3>
-<p>London faces rising heat risks due to the Urban Heat Island effect, creating an urgent need for neighborhood-level cooling research. While London Policy G5 (2021) set ambitious greening targets, evaluating their real-world impact at the LSOA scale remains difficult. Our application addresses this gap by offering a platform for planners to visualize Cooling Condition Scores (CCS) alongside official 2025 Cool Spaces. By bridging Turner et al.’s (2025) methodology with local governance, it supports evidence-based planning and ensures cooling resources reach the neighborhoods that need them most.</p>
+<p>London faces rising heat risks due to the Urban Heat Island effect, creating an urgent need for neighborhood-level cooling research. While London Policy G5 (2021) set ambitious greening targets, evaluating their real-world impact at the LSOA scale remains difficult. Our application addresses this gap by offering a platform for planners to visualize Cooling Condition Scores (CCS) alongside official 2025 Cool Spaces. By bridging the methodology of (Turner et al., 2025) with local governance, it supports evidence-based planning and ensures cooling resources reach the neighborhoods that need them most.</p>
 </section>
 <section id="end-user" class="level3">
 <h3 class="anchored" data-anchor-id="end-user">End User</h3>
@@ -555,7 +555,7 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 <h2 class="anchored" data-anchor-id="insights-and-objectives">Insights and Objectives</h2>
 <p>The app provides actionable insights for London’s urban heat management by identifying the gap between environmental trends and current infrastructure. It supports:</p>
 <p>• Strategic Prioritization: Visualizes the overlap between CCS change trends (2022–2025), population density, and official “Cool Spaces”. This assists users in identifying “vulnerable hotspots” where environmental conditions are deteriorating and existing resources remain insufficient</p>
-<p>.• Localized Resilience Analysis: Enables neighbourhood-scale assessment, allowing local councils to pinpoint specific streets or blocks where rising surface temperatures are not yet countered by adequate cooling facilities.</p>
+<p>• Localized Resilience Analysis: Enables neighbourhood-scale assessment, allowing local councils to pinpoint specific streets or blocks where rising surface temperatures are not yet countered by adequate cooling facilities.</p>
 <p>• Academic Research: Unlike traditional urban heat studies in static academic papers, this app provides an interactive platform for exploring cooling dynamics through a comparison of CCS trends and official resource distribution. By leveraging the Equal Weighting Approach (Turner et al., 2025), it enables a rigorous validation of “estimated cooling potential” against ground-truth “Cool Spaces,” ensuring more accurate spatial risk assessments and policy validation at the neighbourhood scale.</p>
 </section>
 <section id="limitations-and-future-development" class="level2">
@@ -575,19 +575,19 @@ CCS = \frac{LST_{norm} + (1 - NDVI_{norm}) + NDBI_{norm}}{3}
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">[cite_start]<strong>Static Models</strong> [cite: 27]</td>
-<td style="text-align: left;">[cite_start]Current analysis is based on precomputed CCS trends (2022–2025), which limits adaptability to sudden environmental shifts or new urban developments[cite: 27].</td>
-<td style="text-align: left;">[cite_start]Integrate real-time satellite feeds or live sensor data to enhance responsiveness to active heatwave events[cite: 28].</td>
+<td style="text-align: left;"><strong>Static model structure</strong></td>
+<td style="text-align: left;">Current analysis is based on precomputed Cooling Condition Score trends (2022–2025), so it cannot immediately reflect sudden environmental changes or newly emerging local heat risks.</td>
+<td style="text-align: left;">Integrating near real-time satellite observations or environmental sensor data would improve responsiveness during active heat events.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">[cite_start]<strong>Granularity of Analysis</strong> [cite: 29]</td>
-<td style="text-align: left;">[cite_start]Analysis at the LSOA level makes it difficult for users to decide the exact locations for new trees or cooling infrastructure[cite: 30].</td>
-<td style="text-align: left;">[cite_start]Provide more detailed data at the street or block level to allow for more precise planning[cite: 30].</td>
+<td style="text-align: left;"><strong>Granularity of analysis</strong></td>
+<td style="text-align: left;">Analysis at the LSOA level supports borough-scale comparison, but it is less suitable for identifying precise locations for tree planting or local cooling infrastructure.</td>
+<td style="text-align: left;">Future work could introduce street-level or block-level layers to support finer spatial targeting.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">[cite_start]<strong>Report Export</strong> [cite: 31]</td>
-<td style="text-align: left;">[cite_start]Lack of export features makes it difficult for stakeholders to document findings or share evidence-based insights during planning consultations and meetings[cite: 32].</td>
-<td style="text-align: left;">[cite_start]Add functionality to export analysis reports or map snapshots to support documentation and cross-departmental sharing[cite: 32].</td>
+<td style="text-align: left;"><strong>Limited reporting functions</strong></td>
+<td style="text-align: left;">The current interface focuses on interactive exploration and does not yet support direct export of analytical outputs for planning use.</td>
+<td style="text-align: left;">Adding downloadable reports or map export functions would improve usability for communication and decision-making.</td>
 </tr>
 </tbody>
 </table>

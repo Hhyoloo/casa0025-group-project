@@ -266,7 +266,7 @@ The app provides actionable insights for London’s urban heat management by ide
 
 • Strategic Prioritization: Visualizes the overlap between CCS change trends (2022–2025), population density, and official "Cool Spaces". This assists users in identifying "vulnerable hotspots" where environmental conditions are deteriorating and existing resources remain insufficient
 
-.• Localized Resilience Analysis: Enables neighbourhood-scale assessment, allowing local councils to pinpoint specific streets or blocks where rising surface temperatures are not yet countered by adequate cooling facilities.
+• Localized Resilience Analysis: Enables neighbourhood-scale assessment, allowing local councils to pinpoint specific streets or blocks where rising surface temperatures are not yet countered by adequate cooling facilities.
 
 • Academic Research: Unlike traditional urban heat studies in static academic papers, this app provides an interactive platform for exploring cooling dynamics through a comparison of CCS trends and official resource distribution. By leveraging the Equal Weighting Approach (Turner et al., 2025), it enables a rigorous validation of "estimated cooling potential" against ground-truth "Cool Spaces," ensuring more accurate spatial risk assessments and policy validation at the neighbourhood scale.
 
@@ -275,9 +275,9 @@ The app provides actionable insights for London’s urban heat management by ide
 
 | Limitation | Implication | Future development |
 | :--- | :--- | :--- |
-| [cite_start]**Static Models** [cite: 27] | [cite_start]Current analysis is based on precomputed CCS trends (2022–2025), which limits adaptability to sudden environmental shifts or new urban developments[cite: 27]. | [cite_start]Integrate real-time satellite feeds or live sensor data to enhance responsiveness to active heatwave events[cite: 28]. |
-| [cite_start]**Granularity of Analysis** [cite: 29] | [cite_start]Analysis at the LSOA level makes it difficult for users to decide the exact locations for new trees or cooling infrastructure[cite: 30]. | [cite_start]Provide more detailed data at the street or block level to allow for more precise planning[cite: 30]. |
-| [cite_start]**Report Export** [cite: 31] | [cite_start]Lack of export features makes it difficult for stakeholders to document findings or share evidence-based insights during planning consultations and meetings[cite: 32]. | [cite_start]Add functionality to export analysis reports or map snapshots to support documentation and cross-departmental sharing[cite: 32]. |
+| **Static model structure** | Current analysis is based on precomputed Cooling Condition Score trends (2022–2025), so it cannot immediately reflect sudden environmental changes or newly emerging local heat risks. | Integrating near real-time satellite observations or environmental sensor data would improve responsiveness during active heat events. |
+| **Granularity of analysis** | Analysis at the LSOA level supports borough-scale comparison, but it is less suitable for identifying precise locations for tree planting or local cooling infrastructure. | Future work could introduce street-level or block-level layers to support finer spatial targeting. |
+| **Limited reporting functions** | The current interface focuses on interactive exploration and does not yet support direct export of analytical outputs for planning use. | Adding downloadable reports or map export functions would improve usability for communication and decision-making. |
 
 ## References
 
