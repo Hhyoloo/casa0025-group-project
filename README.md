@@ -6,12 +6,22 @@ The project explores where London may need cooling interventions by combining la
 
 ## Repository structure
 
-- `index.qmd` — main Quarto website content
-- `styles.css` — custom website styling
-- `images/` — image assets
-- `docs/` — rendered website files for GitHub Pages
-- `_quarto.yml` — Quarto website configuration
+- `index.qmd` — main Quarto website content  
+- `styles.css` — custom website styling  
+- `images/` — image assets  
+- `docs/` — rendered website files for GitHub Pages  
+- `_quarto.yml` — Quarto website configuration  
 
 ## Website
 
-The published site is intended to be served from the `docs/` folder using GitHub Pages.
+The published website is deployed through GitHub Pages using the `docs/` folder as the output directory.
+
+## Team contribution
+
+- **Xin Ye** – produced the LST layers in Google Earth Engine, integrated the group’s Earth Engine scripts into the final interactive application, and developed *The Application* section of the website.  
+
+- **Yutong Xu** – produced the Cooling Condition Score layers and temporal comparison outputs in Google Earth Engine, built the main website structure, and developed the *Data*, *Methodology*, *How it Works* and *References* sections.  
+
+- **Xuchen Xi** – produced the NDVI and NDBI layers in Google Earth Engine, and developed *Project Summary* and *Limitations and future development* sections.  
+
+All sections were jointly reviewed before final submission.
